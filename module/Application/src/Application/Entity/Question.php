@@ -16,8 +16,8 @@ class Question
     
     function __construct($libelle="", $type="") {
         
-        $this->libelle = (string) $libelle;
-        $this->type = (string) $type;
+        $this->setLibelle($libelle);
+        $this->setType($type);
       
     }
     public function getId() {
@@ -34,7 +34,7 @@ class Question
     }
 
     public function setLibelle($libelle) {
-        $this->libelle = $libelle;
+        $this->libelle = (string)$libelle;
         return $this;
     }
 
@@ -43,7 +43,7 @@ class Question
     }
 
     public function setType($type) {
-        $this->type = $type;
+        $this->type = (string)$type;
         return $this;
     }
 
