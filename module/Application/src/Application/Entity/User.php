@@ -100,8 +100,8 @@ class User {
             return $this->listeEnquetes;
         }
 
-        public function setListeEnquetes($listeEnquetes) {
-            $this->listeEnquetes = (array) $listeEnquetes;
+        public function addListeEnquetes($listeEnquetes) {
+            $this->listeEnquetes[] = $listeEnquetes;
             return $this;
         }
 
