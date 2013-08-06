@@ -12,43 +12,18 @@ namespace Application\Entity;
  */
 class User {
     protected $id;
-    /**
-     * 
-     * @var string
-     */
-    
     protected $nom;
-    /**
-     * 
-     * @var string
-     */
-    
     protected $prenom;
-    /**
-     * 
-     * @var string
-     */
-    
     protected $email;
-    /**
-     * 
-     * @var string
-     */
-    
     protected $mdp;
-    /**
-     * 
-     * @var array
-     */
     
-    private $listeEnquetes=array();
+    private $listeEnquetes = array();
    
-    function __construct($nom, $prenom, $email, $mdp) {
-        $this->nom = $nom;
-        $this->prenom = $prenom;
-        $this->email = $email;
-        $this->mdp = $mdp;
-        
+    function __construct($nom = "", $prenom = "", $email = "", $mdp = "") {
+        $this->setNom($nom);
+        $this->setPrenom($prenom);
+        $this->setEmail($email);
+        $this->setMdp($mdp);
         }
 
         public function getId() {
@@ -100,8 +75,8 @@ class User {
             return $this->listeEnquetes;
         }
 
-        public function setListeEnquetes($listeEnquetes) {
-            $this->listeEnquetes = (array) $listeEnquetes;
+        public function addListeEnquetes(Enquete $enquete) {
+            $this->listeEnquetes[] = $enquete;
             return $this;
         }
 
