@@ -17,10 +17,6 @@ class Enquete {
     protected $titre;
     protected $description;
     
-    /**
-     *
-     * @var Question
-     */
     private $listeQuestions = array();
     
     function __construct($id = 0, $titre = "", $description ="") {
