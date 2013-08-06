@@ -30,7 +30,7 @@ class Enquete {
     }
 
     public function setId($id) {
-        $this->id = $id;
+        $this->id = (int)$id;
         return $this;
     }
 
@@ -39,7 +39,7 @@ class Enquete {
     }
 
     public function setTitre($titre) {
-        $this->titre = $titre;
+        $this->titre = (string)$titre;
         return $this;
     }
 
@@ -48,7 +48,7 @@ class Enquete {
     }
 
     public function setDescription($description) {
-        $this->description = $description;
+        $this->description = (string)$description;
         return $this;
     }
 
