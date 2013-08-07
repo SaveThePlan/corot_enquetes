@@ -3,6 +3,7 @@
 --
 -- ajout du jeu de test
 
+USE `sondages`;
 
 
 --
