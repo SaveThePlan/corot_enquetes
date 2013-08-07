@@ -20,16 +20,6 @@ return array(
                     ),
                 ),
             ),
-            'zfcuser' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route' => '/user',
-                    'defaults' => array(
-                        'controller' => '\Application\Controller\User',
-                        'action' => 'index',
-                    ),
-                ),
-            ),
             'repondre' => array(
                 'type' => 'Regex',
                 'options' => array(
