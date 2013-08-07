@@ -5,58 +5,63 @@ namespace Application\Entity;
 class Proposition
 {
 
-    protected
-            $id;
-    protected
-            $libelle;
+    /**
+     *
+     * @var int
+     */
+    protected $id;
+    
+    /**
+     *
+     * @var string
+     */
+    protected $libelle;
+    
     /**
      *
      * @var Question
      */
-    private
-            $question;
+    private $question;
 
     function __construct($id = 0, $libelle = "", Question $question = null)
     {
-        $this->id = (int) $id;
-        $this->libelle = (string) $libelle;
+        $this->setId($id);
+        $this->setLibelle($libelle);
         $this->question = $question;
     }
 
-    public
-            function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    public
-            function setId($id)
+    public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int)$id;
         return $this;
     }
 
-    public
-            function getLibelle()
+    public function getLibelle()
     {
         return $this->libelle;
     }
 
-    public
-            function setLibelle($libelle)
+    public function setLibelle($libelle)
     {
-        $this->libelle = $libelle;
+        $this->libelle = (string)$libelle;
         return $this;
     }
 
-    public
-            function getQuestion()
+    /**
+     * 
+     * @return Question
+     */
+    public function getQuestion()
     {
         return $this->question;
     }
 
-    public
-            function setQuestion(Question $question)
+    public function setQuestion(Question $question)
     {
         $this->question = $question;
         return $this;

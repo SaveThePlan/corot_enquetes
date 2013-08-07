@@ -9,7 +9,6 @@ namespace Application\Entity;
 /**
  * Description of Enquete
  *
- * @author stagiaire
  */
 class Enquete {
     
