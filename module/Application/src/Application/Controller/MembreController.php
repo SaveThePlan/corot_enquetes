@@ -99,5 +99,14 @@ class MembreController extends UserController
                 )
         );
     }
+    
+    public function effacerAction()
+    {
+        return new ViewModel(
+                array(
+                //'enquetes' => $enquetes 
+                )
+        );
+    }
 
 }
