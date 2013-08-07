@@ -23,7 +23,19 @@ class EnqueteMapper
     }
 
     /**
-     *  @return \Application\Entity\Enquete[] Liste des enquetes
+     * récupère une enquête par son id
+     * 
+     *  @return \Application\Entity\Enquete
+     */
+    public function getById($id)
+    {
+        return $enquete;
+    }
+            
+    /**
+     * récpère la liste d'enquetes pour un membre
+     *  
+     * @return \Application\Entity\Enquete[] Liste des enquetes
      */
     public function getAllByIdUser($idUser)
     {
@@ -44,5 +56,38 @@ class EnqueteMapper
 
         return $listeEnquetes;
     }
+    
+    /**
+     * création d'une enquête
+     *
+     * @param \Applicatin\Entity\Enquete 
+     *  @return bool
+     */
+    public function add(Enquete $enquete)
+    {
+    }
+            
+    
+    /**
+     * modification d'une enquête
+     *
+     * @param \Applicatin\Entity\Enquete 
+     *  @return bool
+     */
+    public function edit(Enquete $enquete)
+    {
+    }
+            
+    
+    /**
+     * suppression d'une enquête
+     *
+     * @param int
+     *  @return bool
+     */
+    public function delete($id)
+    {
+    }
+            
 
 }
