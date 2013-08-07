@@ -10,6 +10,10 @@ namespace Application\Entity;
 class Reponse
 {
 
+    /**
+     *
+     * @var int
+     */
     protected $id;
 
     /**
@@ -35,6 +39,14 @@ class Reponse
      * @var Proposition
      */
     private $choix;
+    
+    function __construct($id=0, $uidRepondant="", $contenu="", Question $question = NULL, Proposition $choix = NULL) {
+        $this->setId($id);
+        $this->setUidRepondant($uidRepondant);
+        $this->setContenu($contenu);
+        $this->question = $question;
+        $this->choix = $choix;
+    }
 
     public function getId()
     {
@@ -43,7 +55,7 @@ class Reponse
 
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int)$id;
         return $this;
     }
 
@@ -69,6 +81,10 @@ class Reponse
         return $this;
     }
 
+    /**
+     * 
+     * @return \Entity\Question
+     */
     public function getQuestion()
     {
         return $this->question;
@@ -80,6 +96,10 @@ class Reponse
         return $this;
     }
 
+    /**
+     * 
+     * @return \Entity\Proposition
+     */
     public function getChoix()
     {
         return $this->choix;
@@ -90,5 +110,6 @@ class Reponse
         $this->choix = $choix;
         return $this;
     }
+
 
 }

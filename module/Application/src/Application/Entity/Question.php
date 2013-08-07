@@ -5,74 +5,80 @@ namespace Application\Entity;
 class Question
 {
 
-    private
-            $id;
-    private
-            $libelle;
-    private
-            $type;
-    private
-            $listChoix = array();
 
-    function __construct($id=0, $libelle="", $type="")
+    /**
+     *
+     * @var int
+     */
+    protected $id;
+
+    /**
+     *
+     * @var string
+     */
+    protected $libelle;
+
+    /**
+     *
+     * @var string
+     */
+    protected $type; /* attention il s'agit d'une enum en SQL : text, nb, qcm */
+
+    /**
+     *
+     * @var array
+     */
+    private $listeChoix = array();
+
+    public function __construct($id=0, $libelle="", $type="")
     {
-        $this->id = (int) $id;
-        $this->libelle = (string) $libelle;
-        $this->type = (string) $type;
+        $this->setId($id);
+        $this->setLibelle($libelle);
+        $this->setType($type);
     }
 
-    public
-            function getId()
+    public function getId()
     {
         return $this->id;
     }
 
-    public
-            function setId($id)
+    public function setId($id)
     {
-        $this->id = $id;
+        $this->id = (int)$id;
         return $this;
     }
 
-    public
-            function getLibelle()
+    public function getLibelle()
     {
         return $this->libelle;
     }
 
-    public
-            function setLibelle($libelle)
+    public function setLibelle($libelle)
     {
         $this->libelle = (string) $libelle;
         return $this;
     }
 
-    public
-            function getType()
+    public function getType()
     {
         return $this->type;
     }
 
-    public
-            function setType($type)
+    public function setType($type)
     {
         $this->type = (string) $type;
         return $this;
     }
 
-    public
-            function getListChoix()
+    public function getListeChoix()
     {
-        return $this->listChoix;
+        return $this->listeChoix;
     }
 
-    public
-            function addListChoix(Proposition $choix)
+    public function addListeChoix(Proposition $choix)
     {
-        $this->listChoix[] = $choix;
+        $this->listeChoix[] = $choix;
         return $this;
     }
 
 }
-
-?>
