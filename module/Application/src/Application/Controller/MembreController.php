@@ -31,6 +31,7 @@ class MembreController extends UserController
     public function indexAction()
     {
         /* redirection vers page de login si user inconnu... */
+        // desactivé pour le moment car pénible de se connecter à chaque fois...
 //        if (!$this->zfcUserAuthentication()->hasIdentity()) {
 //            return $this->redirect()->toRoute(static::ROUTE_LOGIN);
 //        }
