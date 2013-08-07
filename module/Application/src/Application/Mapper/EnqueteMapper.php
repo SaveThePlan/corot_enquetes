@@ -3,6 +3,7 @@
 namespace Application\Mapper;
 
 use Application\Entity\Enquete;
+use Exception;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Stdlib\Hydrator\ClassMethods;
@@ -25,7 +26,7 @@ class EnqueteMapper
     /**
      * récupère une enquête par son id
      * 
-     *  @return \Application\Entity\Enquete
+     *  @return Enquete
      */
     public function getById($id)
     {
@@ -35,14 +36,14 @@ class EnqueteMapper
     /**
      * récpère la liste d'enquetes pour un membre
      *  
-     * @return \Application\Entity\Enquete[] Liste des enquetes
+     * @return Enquete[] Liste des enquetes
      */
     public function getAllByIdUser($idUser)
     {
         $idUser = (int) $idUser;
         $resultSet = $this->gateway->select(array('user_id' => $idUser));
         if (!$resulset) {
-            throw new \Exception("Could not find resulset for $idUser");
+            throw new Exception("Could not find resulset for $idUser");
         }
 
         foreach ($resultSet as $row) {
@@ -60,7 +61,7 @@ class EnqueteMapper
     /**
      * création d'une enquête
      *
-     * @param \Applicatin\Entity\Enquete 
+     * @param Enquete 
      *  @return bool
      */
     public function add(Enquete $enquete)
@@ -71,7 +72,7 @@ class EnqueteMapper
     /**
      * modification d'une enquête
      *
-     * @param \Applicatin\Entity\Enquete 
+     * @param Enquete 
      *  @return bool
      */
     public function edit(Enquete $enquete)
