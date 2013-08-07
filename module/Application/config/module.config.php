@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
+//DOMAINE PUBLIC
 return array(
     'router' => array(
         'routes' => array(
@@ -20,6 +20,38 @@ return array(
                     ),
                 ),
             ),
+            //route pour la page "repondre"
+             'repondre'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/reponse_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enquete',
+                        'action'     => 'repondre',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/details_%id%.html',
+                ),
+            ),//creation d'une nouvelle route
+            
+//DOMAINE MEMBRE
+            
+                        //route pour la page "repondre"
+             'list'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/reponse_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Enquete',
+                        'action'     => 'repondre',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/details_%id%.html',
+                ),
+            ),//creation d'une nouvelle route
+            
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -73,7 +105,12 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Enquete' => 'Application\Controller\EnqueteController',
+            'Application\Controller\Public' => 'Application\Controller\PublicController',
+            'Application\Controller\Membre' => 'Application\Controller\MembreController'
+            
+            
         ),
     ),
     'view_manager' => array(
