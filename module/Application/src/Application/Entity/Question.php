@@ -5,11 +5,11 @@ namespace Application\Entity;
 class Question
 {
 
-    private
+    protected 
             $id;
-    private
+    protected 
             $libelle;
-    private
+    protected 
             $type;
     private
             $listChoix = array();
