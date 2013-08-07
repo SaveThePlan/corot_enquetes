@@ -16,6 +16,16 @@ return array(
                     'route'    => '/',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
+                        'action'     => 'Accueil',
+                    ),
+                ),
+            ),
+            'zfcuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/user',
+                    'defaults' => array(
+                        'controller' => '\Application\Controller\User',
                         'action'     => 'index',
                     ),
                 ),
