@@ -16,7 +16,7 @@ return array(
                     'route' => '/',
                     'defaults' => array(
                         'controller' => 'Application\Controller\Index',
-                        'action' => 'index',
+                        'action'     => 'Accueil',
                     ),
                 ),
             ),
@@ -30,6 +30,107 @@ return array(
                     ),
                 ),
             ),
+            
+                'repondre'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/repondant_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Public',
+                        'action'     => 'repondre',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/repondant_%id%.html',
+                ),
+            ),//creation d'une nouvelle route
+            
+            'liste_Enquetes'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/index_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Membre\index',
+                        'action'     => 'index',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/index_%id%.html',
+                ),
+            ),//creation d'une nouvelle route
+            
+         'CREER'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/creer_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Membre\creer',
+                        'action'     => 'creer',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/creer_%id%.html',
+                ),
+            ),//creation d'une nouvelle route            
+            
+       'MODIFIER'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/modifier_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Membre\modifier',
+                        'action'     => 'modofier',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/modifier_%id%.html',
+                ),
+            ),//creation d'une nouvelle route
+            
+           'SUPPRIMER'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/supprimer_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Membre\supprimer',
+                        'action'     => 'supprimer',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/supprimer_%id%.html',
+                ),
+            ),//creation d'une nouvelle route     
+            
+          'VOIR'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/apercu_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Membre\apercu',
+                        'action'     => 'apercu',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/apercu_%id%.html',
+                ),
+            ),//creation d'une nouvelle route     
+            
+           'RESULTATS'=>array(
+                'type' => 'Regex',
+                'options' => array(
+                    //analyse de mon url
+                    'regex'    => '/consulter_(?<id>[1-9][0-9]*)\.html', // format de l'url dans l'action detail du fichier controller
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Membre\consulter',
+                        'action'     => 'consulter',
+                    ),
+                    //generer l'URL a partir de l'id
+                    'spec'=>'/consulter_%id%.html',
+                ),
+            ),//creation d'une nouvelle route     
+            
+            
+            
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
