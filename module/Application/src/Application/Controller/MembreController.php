@@ -15,7 +15,7 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 
-class UserController extends \ZfcUser\Controller\UserController
+class MembreController extends \ZfcUser\Controller\UserController
 {
 
     public function indexAction()

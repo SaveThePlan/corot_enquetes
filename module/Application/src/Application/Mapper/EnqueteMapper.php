@@ -7,6 +7,11 @@ use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
+/**
+ * Description of EnqueteMapper
+ *
+ * @author Jimmy
+ */
 class EnqueteMapper
 {
 

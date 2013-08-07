@@ -28,7 +28,7 @@ class Question
      *
      * @var array
      */
-    protected $listChoix = array();
+    private $listeChoix = array();
 
     public function __construct($id=0, $libelle="", $type="")
     {
@@ -70,16 +70,15 @@ class Question
         return $this;
     }
 
-    public function getListChoix()
+    public function getListeChoix()
     {
-        return $this->listChoix;
+        return $this->listeChoix;
     }
 
-    public function addListChoix(Proposition $choix)
+    public function addListeChoix(Proposition $choix)
     {
-        $this->listChoix[] = $choix;
+        $this->listeChoix[] = $choix;
         return $this;
     }
 
 }
-

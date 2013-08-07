@@ -39,6 +39,14 @@ class Reponse
      * @var Proposition
      */
     private $choix;
+    
+    function __construct($id=0, $uidRepondant="", $contenu="", Question $question = NULL, Proposition $choix = NULL) {
+        $this->setId($id);
+        $this->setUidRepondant($uidRepondant);
+        $this->setContenu($contenu);
+        $this->question = $question;
+        $this->choix = $choix;
+    }
 
     public function getId()
     {
@@ -101,14 +109,6 @@ class Reponse
     {
         $this->choix = $choix;
         return $this;
-    }
-    
-    function __construct($id=0, $uidRepondant="", $contenu="", Question $question = NULL, Proposition $choix = NULL) {
-        $this->setId($id);
-        $this->setUidRepondant($uidRepondant);
-        $this->setContenu($contenu);
-        $this->question = $question;
-        $this->choix = $choix;
     }
 
 
