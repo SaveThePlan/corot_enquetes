@@ -14,26 +14,34 @@
 namespace Application\Controller;
 
 //use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 
-class MembreController extends \ZfcUser\Controller\UserController
+
+use Application\Mapper\EnqueteMapper;
+use Zend\View\Model\ViewModel;
+use ZfcUser\Controller\UserController;
+
+class MembreController extends UserController
 {
 
     /**
      * index membre = liste enquêtes
      * 
-     * @return \Zend\View\Model\ViewModel
+     * @return ViewModel
      */
     public function indexAction()
     {
-        if (!$this->zfcUserAuthentication()->hasIdentity()) {
-            return $this->redirect()->toRoute(static::ROUTE_LOGIN);
-        }
-        //$tableGateway = $this->getServiceLocator()->get('AlbumTableGateway');
+        /* redirection vers page de login si user inconnu... */
+//        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+//            return $this->redirect()->toRoute(static::ROUTE_LOGIN);
+//        }
+
+        
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $mapperEnquete = new EnqueteMapper($adapter);
 
-        $enquetes = $mapperEnquete->getAllByUser($this->zfcUserAuthentication()->getIdentity()->getId());
+        /* création de la liste d'enquêtes */
+        $enquetes = $mapperEnquete->getAllByIdUser(1); // pour test
+//        $enquetes = $mapperEnquete->getAllByIdUser($this->zfcUserAuthentication()->getIdentity()->getId());
 
         return new ViewModel(
                 array(
