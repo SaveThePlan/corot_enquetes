@@ -26,14 +26,14 @@ class MembreController extends \ZfcUser\Controller\UserController
         //$tableGateway = $this->getServiceLocator()->get('AlbumTableGateway');
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $mapperEnquete = new EnqueteMapper($adapter);
-        
+
         $enquetes = $mapperEnquete->getAllByUser($this->zfcUserAuthentication()->getIdentity()->getId());
-        
+
         return new ViewModel(
                 array(
-            //'enquetes' => $enquetes 
-            )
-               );
+                //'enquetes' => $enquetes 
+                )
+        );
     }
 
 }
