@@ -87,7 +87,7 @@ return array(
             'creerEnquete' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/creer_enquete.html', 
+                    'route' => '/creer-enquete.html', 
                     'defaults' => array(
                         'controller' => 'Application\Controller\Membre',
                         'action' => 'creer',
