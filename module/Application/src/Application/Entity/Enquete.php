@@ -9,12 +9,26 @@ namespace Application\Entity;
 /**
  * Description of Enquete
  *
- * @author stagiaire
  */
 class Enquete {
     
+
+    /**
+     *
+     * @var int
+     */
     protected $id;
+
+    /**
+     *
+     * @var string
+     */
     protected $titre;
+
+    /**
+     *
+     * @var string
+     */
     protected $description;
     
     private $listeQuestions = array();
@@ -65,4 +79,3 @@ class Enquete {
 
 }
 
-?>
