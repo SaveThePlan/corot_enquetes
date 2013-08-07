@@ -12,8 +12,23 @@ namespace Application\Entity;
  */
 class Enquete {
     
+
+    /**
+     *
+     * @var int
+     */
     protected $id;
+
+    /**
+     *
+     * @var string
+     */
     protected $titre;
+
+    /**
+     *
+     * @var string
+     */
     protected $description;
     
     private $listeQuestions = array();
@@ -64,4 +79,3 @@ class Enquete {
 
 }
 
-?>

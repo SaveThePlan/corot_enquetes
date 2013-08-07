@@ -8,11 +8,40 @@ namespace Application\Entity;
  */
 class User {
 
+    /**
+     *
+     * @var int
+     */
     protected $id;
+
+    /**
+     *
+     * @var string
+     */
     protected $nom;
+
+    /**
+     *
+     * @var string
+     */
     protected $prenom;
+
+    /**
+     *
+     * @var string
+     */
     protected $email;
+
+    /**
+     *
+     * @var string
+     */
     protected $mdp;
+
+    /**
+     *
+     * @var array
+     */
     private $listeEnquetes = array();
 
     public function __construct($nom = "", $prenom = "", $email = "", $mdp = "") {

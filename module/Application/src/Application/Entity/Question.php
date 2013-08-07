@@ -5,9 +5,29 @@ namespace Application\Entity;
 class Question
 {
 
+
+    /**
+     *
+     * @var int
+     */
     protected $id;
+
+    /**
+     *
+     * @var string
+     */
     protected $libelle;
+
+    /**
+     *
+     * @var string
+     */
     protected $type; /* attention il s'agit d'une enum en SQL : text, nb, qcm */
+
+    /**
+     *
+     * @var array
+     */
     protected $listChoix = array();
 
     public function __construct($id=0, $libelle="", $type="")
