@@ -2,69 +2,68 @@
 
 namespace Application\Mapper;
 
-use Application\Entity\Question;
+use Application\Entity\Proposition;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\TableGateway\TableGateway;
 
 /**
  * Description of EnqueteMapper
  *
- * @author Jimmy
  */
-class QuestionMapper
+class PropositionMapper
 {
 
     private $gateway;
 
     public function __construct(AdapterInterface $adapter)
     {
-        $this->gateway = new TableGateway('question', $adapter);
+        $this->gateway = new TableGateway('proposition', $adapter);
     }
 
     /**
      * récupère une question par son id
      * 
-     *  @return Question
+     *  @return Proposition
      */
     public function getById($id)
     {
-        return $question;
+        return $proposition;
     }
             
     /**
-     * récpère la liste de questions pour une enquête
+     * récpère la liste de propositions pour une question
      *  
-     * @return Question[] Liste des questions
+     * @return Proposition[] Liste des propositions
      */
-    public function getAllByIdEnquete($idEnquete)
+    public function getAllByIdQuestion($idQuestion)
     {
-        return $listeQuestions;
+        return $listeProposition;
     }
     
     /**
-     * création d'une question
+     * création d'une proposition
      *
-     * @param Question 
+     * @param Proposition
      *  @return bool
      */
-    public function add(Question $question)
+    public function add(Proposition $proposition)
     {
     }
             
     
     /**
-     * modification d'une question
+     * modification d'une proposition
      *
-     * @param Question
+     * @param Proposition
      *  @return bool
      */
-    public function edit(Question $question)
+    public function edit(Proposition $proposition)
     {
     }
             
     
     /**
-     * suppression d'une question
+     * suppression d'une proposition
      *
      * @param int
      *  @return bool
