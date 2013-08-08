@@ -50,16 +50,6 @@ class MembreController extends UserController {
                 )
         );
     }
-<<<<<<< HEAD
-    
-    public function creerAction()
-    {
-        $formCreation = new \Application\Form\CreerForm();
-        
-        return new ViewModel(
-                array(
-                'formCreation' => $formCreation 
-=======
 
     public function creerAction() {
         $formCreation = new \Application\Form\CreerForm();
@@ -67,7 +57,6 @@ class MembreController extends UserController {
         return new ViewModel(
                 array(
             'formCreation' => $formCreation
->>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e
                 )
         );
     }
@@ -75,7 +64,7 @@ class MembreController extends UserController {
     public function modifierAction() {
         return new ViewModel(
                 array(
-                //'enquetes' => $enquetes 
+//'enquetes' => $enquetes 
                 )
         );
     }
@@ -83,16 +72,16 @@ class MembreController extends UserController {
     public function supprimerAction() {
         return new ViewModel(
                 array(
-                //'enquetes' => $enquetes 
+//'enquetes' => $enquetes 
                 )
         );
     }
 
     public function apercuAction() {
         $this->userAuth();
-        // TODO sécurité : comment tester si l'enquête demandée appartient bien à l'utilisateur...
-        // peut-être en passant par une liste d'enquêtes stckées dans le user ?
-        //recupère le paramètre get de l'url
+// TODO sécurité : comment tester si l'enquête demandée appartient bien à l'utilisateur...
+// peut-être en passant par une liste d'enquêtes stckées dans le user ?
+//recupère le paramètre get de l'url
         $idEnquete = (int) $this->params('id');
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
         $mapper = new EnqueteMapper($adapter);
@@ -104,23 +93,12 @@ class MembreController extends UserController {
             return $this->redirect()->toRoute('listeEnquetes');
         }
 
-        //enquete ok : récupération de la liste des questions
+//enquete ok : récupération de la liste des questions
         $mapperQuestion = new QuestionMapper($adapter);
         $listeQuestions = $mapperQuestion->getAllByIdEnquete($idEnquete);
-<<<<<<< HEAD
-        
+
         $formEnquete = new EnqueteForm($listeQuestions, $adapter);
-                
-=======
 
-        if ($listeQuestions) {
-            $enquete->setListeQuestions($listeQuestions);
-        }
-
-
-        $formEnquete = new \Application\Form\EnqueteForm($enquete->getListeQuestions(), $adapter);
-
->>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e
         return new ViewModel(
                 array(
             'enquete' => $enquete,

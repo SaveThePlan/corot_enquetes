@@ -52,16 +52,12 @@ class EnqueteForm extends Form {
 
             $this->add($element);
         }
-<<<<<<< HEAD
-        
-=======
 
 
 
 //        $submit = new \Zend\Form\Element\Submit('submit');
 //        $submit->setValue('Valider');
 //        $this->add($submit);
->>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e
     }
 
     private function questionText(Question $question) {
