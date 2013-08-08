@@ -55,9 +55,11 @@ class MembreController extends UserController
     
     public function creerAction()
     {
+        $formCreation = new \Application\Form\CreerForm();
+        
         return new ViewModel(
                 array(
-                //'enquetes' => $enquetes 
+                'formCreation' => $formCreation 
                 )
         );
     }

@@ -1,19 +1,38 @@
+<!-- Scripts -->
 <?php
+//ajout du script dans le head
+$this->headScript()->appendFile($this->basePath() . '/js/ajoutQuestion.js');
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+//ajout du css
+$this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css');
 ?>
-<div id="creation">
-    <form method="POST" action="">
-        <table>
-            <tr><th>titre</th><td><input type="text" name="titre" value=""/></td></tr>
-            <tr><th>description</th><td><textarea rows="4" cols="50" name="description"></textarea></td></tr>
-        
-        </table>
 
-        <input type="submit" value="annuler" name="annuler" />
-        <input type="submit" value="valider " name="valider" />
-    </form>
+
+<h1>Nouvelle enquête</h1>
+
+<?php // echo $this->form($formCreation); ?>
+
+<?php echo $this->form()->openTag($formCreation); ?>
+
+<?php echo $this->formLabel($formCreation->get("titre")); ?>
+<?php echo $this->formElement($formCreation->get("titre")); ?>
+
+<?php echo $this->formLabel($formCreation->get("description")); ?>
+<?php echo $this->formElement($formCreation->get("description")); ?>
+
+<div id="question">
+
+    <?php echo $this->formLabel($formCreation->get("question")); ?>
+    <?php echo $this->formElement($formCreation->get("question")); ?>
+
+    <?php echo $this->formLabel($formCreation->get("type")); ?>
+    <?php echo $this->formElement($formCreation->get("type")); ?>
+
+    <?php echo $this->formLabel($formCreation->get("proposition")); ?>
+    <?php echo $this->formElement($formCreation->get("proposition")); ?>
+
 </div>
+
+<input type="submit" value="enregistrer" />
+
+<?php $this->form()->closeTag(); ?>
