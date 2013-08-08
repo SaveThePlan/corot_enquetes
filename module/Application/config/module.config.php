@@ -16,7 +16,7 @@ return array(
              * ---------------------
              * home             = ACCUEIL - public/index                 : / ()
              * repondreEnquete  = RÉPONDANT - public/repondre            : /enquete_##.html (id enquete)
-             * listeEnquetes    = MEMBRE - membre/index                  : /liste-enquetes_##.html (id membre)
+             * listeEnquetes    = MEMBRE - membre/index                  : /liste-enquetes.html (no param : id membre géré par zfcUser)
              * creerEnquete     = CRÉER ENQUÊTE - membre/creer           : /creer-enquete.html ()
              * voirEnquete      = VOIR ENQUÊTE - membre/apercu           : /apercu-enquete_##.html (id enquete)
              * modifierEnquete  = MODIFIER ENQUÊTE - membre/modifier     : /editer-enquete_##.html (id enquete)
