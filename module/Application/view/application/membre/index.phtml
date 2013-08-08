@@ -1,23 +1,27 @@
 <?php
-
+/**
+ * vue partielle liste de requêtes
+ */
 ?>
 
 <table>
-    <tr>
-        <td><?php echo'titre mon enquete numéro N'?></td>
-        <td><a href="#">visualiser</a></td>
-        <td><a href="#">modidifier</a></td>
-        <td><a href="#">supprimer</a></td>
-        <td><a href="#">resultat</a></td>
-    </tr>
-    
-    <tr>
-        <td>titre mon enquete numéro N</td>
-        <td><a href="#">visualiser</a></td>
-        <td><a href="#">modidifier</a></td>
-        <td><a href="#">supprimer</a></td>
-        <td><a href="#">resultat</a></td>
-    </tr>
-    
+    <thead>
+        <tr>
+            <th>Titre de l'enquête</td>
+            <th colspan='4'>Actions</td>
+        </tr>
+    </thead>
+    <tbody>    
+        <?php foreach ($enquetes as $enq): /* @var $enq \Application\Entity\Enquete */ ?>
+            <tr>
+                <td><?php echo $enq->getTitre(); ?></td>
+                <td><a href="<?php echo $this->url('voirEnquete', array('id'=>$enq->getId())); ?>">aperçu</a></td>
+                <td><a href="<?php echo $this->url('modifierEnquete', array('id'=>$enq->getId())); ?>">éditer</a></td>
+                <td><a href="<?php echo $this->url('supprimerEnquete', array('id'=>$enq->getId())); ?>">supprimer</a></td>
+                <td><a href="<?php echo $this->url('resultatsEnquete', array('id'=>$enq->getId())); ?>">résultats</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+
 </table>
 

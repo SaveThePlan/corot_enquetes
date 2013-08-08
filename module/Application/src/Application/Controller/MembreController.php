@@ -46,7 +46,7 @@ class MembreController extends UserController
 
         return new ViewModel(
                 array(
-                //'enquetes' => $enquetes 
+                'enquetes' => $enquetes 
                 )
         );
     }
