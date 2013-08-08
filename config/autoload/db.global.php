@@ -2,7 +2,7 @@
 return array(
         'db' => array(
         'driver' => 'pdo',
-        'dsn' => 'mysql:dbname=sondages;host=localhost',
+        'dsn' => 'mysql:host=localhost;dbname=sondages;',
         'driver_options' => array(
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         ),
