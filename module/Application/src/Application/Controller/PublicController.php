@@ -14,12 +14,13 @@ class PublicController extends AbstractActionController {
     protected $request;
 
     public function indexAction() {
-        //todo page accueil (inscription et connexion)
-        return new ViewModel(
-                array(
-                //'enquetes' => $enquetes 
-                )
-        );
+        if ($this->zfcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute('zfcuser');
+        }
+        $registerForm = $this->getServiceLocator()->get('zfcuser_register_form');
+        return new ViewModel(array(
+            'registerForm' => $registerForm
+        ));
     }
 
     public function repondreAction() {

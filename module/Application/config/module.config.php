@@ -176,7 +176,19 @@ return array(
                 ),
             ), 
             
-            
+            /**
+             * Route  zfcuser pour la connexion
+             */
+            'zfcuser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/membre',
+                    'defaults' => array(
+                        'controller' => '\Application\Controller\Membre',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             
             
             
