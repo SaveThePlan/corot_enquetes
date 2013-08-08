@@ -1,5 +1,14 @@
-<?php
-?>
+<h2><?php echo $enquete->getTitre(); ?></h2>
+<h3>Description :</h3>
+<p><?php echo nl2br($enquete->getDescription()); ?></p>
+
+
+<?php //liste des questions
+if ($enquete->getListeQuestions()):
+    echo $this->form($formEnquete);
+endif; ?>
+
+<!--
 <h2>titre de l'enquête</h2>
 <h3>Description :</h3>
 <p><?php echo'text text text text text text text text text text text text <br>
@@ -31,3 +40,4 @@ text text text text text text text text text text text text text.  <br>'
             <input type="submit" value="Envoyer vos réponses " name="envoyer" /> 
 </form> 
 </div>
+-->
