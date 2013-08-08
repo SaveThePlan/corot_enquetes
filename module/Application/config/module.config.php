@@ -240,7 +240,6 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Public' => 'Application\Controller\PublicController',
             'Application\Controller\Membre' => 'Application\Controller\MembreController'
         ),
