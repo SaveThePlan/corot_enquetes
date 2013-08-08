@@ -41,12 +41,15 @@ class EnqueteMapper
     public function getAllByIdUser($idUser)
     {
         $idUser = (int) $idUser;
-        $resultSet = $this->gateway->select(array('user_id' => $idUser));
-        if (!$resulset) {
-            throw new Exception("Could not find resulset for $idUser");
+        $resultset = $this->gateway->select(array('id_user' => $idUser));
+        
+        //si aucune enquête
+        if (!$resultset) {
+            throw new Exception("Could not find resulset for user : $idUser");
         }
 
-        foreach ($resultSet as $row) {
+        //fetch each row into an object Enquete...
+        foreach ($resultset as $row) {
             $enquete = new Enquete();
 
             $hydrator = new ClassMethods();
