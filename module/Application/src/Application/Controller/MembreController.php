@@ -30,11 +30,8 @@ class MembreController extends UserController
      */
     public function indexAction()
     {
-        /* redirection vers page de login si user inconnu... */
-        // desactivé pour le moment car pénible de se connecter à chaque fois...
-//        if (!$this->zfcUserAuthentication()->hasIdentity()) {
-//            return $this->redirect()->toRoute(static::ROUTE_LOGIN);
-//        }
+        /* test authentification user */
+        $this->userAuth();
 
         
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
@@ -109,4 +106,20 @@ class MembreController extends UserController
         );
     }
 
+    /**
+     * check user authentification.
+     * redirect on 'login page' if fail, othewise don't do anything 
+     * 
+     * @return void
+     */
+    private function userAuth()
+    {
+        /* redirection vers page de login si user inconnu... */
+        // desactivé pour le moment car pénible de se connecter à chaque fois...
+        if (!$this->zfcUserAuthentication()->hasIdentity()) {
+            return $this->redirect()->toRoute(static::ROUTE_LOGIN);
+        }
+    }
+    
+    
 }
