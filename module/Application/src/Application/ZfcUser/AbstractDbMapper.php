@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Mapper;
+namespace Application\ZfcUser;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\Driver\ResultInterface;
@@ -13,7 +13,7 @@ use Zend\Stdlib\Hydrator\ClassMethods;
 use ZfcBase\EventManager\EventProvider;
 use ZfcBase\Db\Adapter\MasterSlaveAdapterInterface;
 
-abstract class AbstractDbMapperCorot extends EventProvider
+abstract class AbstractDbMapper extends EventProvider
 {
     /**
      * @var Adapter

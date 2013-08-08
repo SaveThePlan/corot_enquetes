@@ -10,8 +10,14 @@
 
 namespace Application;
 
+use Application\Entity\User;
+use Application\Mapper\UserMapper;
+use Application\ZfcUser\UserHydrator;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use ZfcUser\Form\Register;
+use ZfcUser\Form\RegisterFilter;
+use ZfcUser\Validator\NoRecordExists;
 
 class Module {
 
@@ -56,7 +62,7 @@ class Module {
                  */
                 'zfcuser_register_form' => function ($sm) {
                     $options = $sm->get('zfcuser_module_options');
-                    $form = new \ZfcUser\Form\Register(null, $options);
+                    $form = new Register(null, $options);
 
                     //Ajout de champs :
                     $form->add(array(
@@ -71,11 +77,11 @@ class Module {
 
 
                     //$form->setCaptchaElement($sm->get('zfcuser_captcha_element'));
-                    $form->setInputFilter(new \ZfcUser\Form\RegisterFilter(
-                            new \ZfcUser\Validator\NoRecordExists(array(
+                    $form->setInputFilter(new RegisterFilter(
+                            new NoRecordExists(array(
                         'mapper' => $sm->get('zfcuser_user_mapper'),
                         'key' => 'email'
-                            )), new \ZfcUser\Validator\NoRecordExists(array(
+                            )), new NoRecordExists(array(
                         'mapper' => $sm->get('zfcuser_user_mapper'),
                         'key' => 'username'
                             )), $options
@@ -89,10 +95,10 @@ class Module {
                     $entityClass = $options->getUserEntityClass();
 
 //                    $mapper = new \Application\Mapper\UserMapper($sm->get('Zend\Db\Adapter\Adapter'));
-                    $mapper = new \Application\Mapper\UserMapper();
+                    $mapper = new UserMapper();
                     $mapper->setDbAdapter($sm->get('Zend\Db\Adapter\Adapter'));
-                    $mapper->setEntityPrototype(new \Application\Entity\User());
-                    $mapper->setHydrator(new \Application\Mapper\UserHydrator());
+                    $mapper->setEntityPrototype(new User());
+                    $mapper->setHydrator(new UserHydrator());
                     
 //                    $mapper->setHydrator(new \ZfcUser\Mapper\UserHydrator());
                     $mapper->setTableName($options->getTableName());

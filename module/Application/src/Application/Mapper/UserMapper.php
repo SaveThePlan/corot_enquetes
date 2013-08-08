@@ -2,12 +2,11 @@
 
 namespace Application\Mapper;
 
+use Application\ZfcUser\AbstractDbMapper;
 use Zend\Stdlib\Hydrator\HydratorInterface;
-use ZfcBase\Mapper\AbstractDbMapper;
 use ZfcUser\Mapper\UserInterface;
 
-//class UserMapper extends AbstractDbMapper implements UserInterface
-class UserMapper extends AbstractDbMapperCorot implements UserInterface
+class UserMapper extends AbstractDbMapper implements UserInterface
 {
     protected $tableName  = 'user';
 

@@ -35,3 +35,32 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
+
+
+
+
+
+#widgetLogin, #widgetRegister {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    padding: 1em;
+}
+#widgetRegister {
+    border-left: 2px solid #555; 
+}
+
+#wellcome {
+    background: #ccc;
+    padding: 2em;
+    margin: 0 0 1em 0;
+}
+#wellcome h1 {
+    font-size: 3em;
+    font-style: bold;
+    margin: 1em 0;
+}
+#wellcome h1 em {
+    font-style: italic;
+    color: green;
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Mapper;
+namespace Application\ZfcUser;
 
 use Zend\Stdlib\Hydrator\ClassMethods;
 use ZfcUser\Entity\UserInterface as UserEntityInterface;
