@@ -109,9 +109,12 @@ class MembreController extends UserController
         }
         
         
+        $formEnquete = new \Application\Form\EnqueteForm($enquete->getListeQuestions(), $adapter);
+                
         return new ViewModel(
                 array(
-                'enquete' => $enquete 
+                'enquete' => $enquete,
+                'formEnquete' => $formEnquete
                 )
         );
     }

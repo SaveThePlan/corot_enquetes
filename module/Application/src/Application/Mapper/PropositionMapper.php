@@ -4,7 +4,9 @@ namespace Application\Mapper;
 
 use Application\Entity\Proposition;
 use Zend\Db\Adapter\AdapterInterface;
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
  * Description of EnqueteMapper
@@ -27,7 +29,6 @@ class PropositionMapper
      */
     public function getById($id)
     {
-        return $proposition;
     }
             
     /**
@@ -37,7 +38,30 @@ class PropositionMapper
      */
     public function getAllByIdQuestion($idQuestion)
     {
-        return $listeProposition;
+        $idQuestion = (int) $idQuestion;
+        $select = new Select();
+        $select->from($this->gateway->getTable())
+                ->where(array('id_question' => $idQuestion))
+                ->order(array('id ASC'));
+        $resultset = $this->gateway->selectWith($select);
+        
+        //si aucune enquête
+        if (!$resultset) {
+            return false; //renvoi faux pour pouvoir tester le retour dans le controlleur
+        }
+
+        //fetch each row into an object Enquete...
+        foreach ($resultset as $row) {
+            $proposition = new Proposition();
+
+            $hydrator = new ClassMethods();
+            $hydrator->hydrate((array) $row, $proposition);
+
+            $listePropositions[] = $proposition;
+        }
+        
+        return $listePropositions;
+
     }
     
     /**

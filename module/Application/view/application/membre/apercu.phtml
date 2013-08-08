@@ -8,31 +8,11 @@
 
 <?php //liste des questions
 if ($enquete->getListeQuestions()):
-    ?>
-    <form action="" method="post">
+    echo $this->form($formEnquete);
+endif; ?>
 
-        <?php foreach ($enquete->getListeQuestions() as $question): /* @var $question \Application\Entity\Question */ ?>
-            <label for="todo"><?php echo $question->getLibelle(); ?></label>
-        <?php endforeach; ?>
-
-
-        Question 1 :(Type Texte)<br>
-        <textarea name="question1" value=""></textarea><br>
-        Question 2 :(Type Nombre)<br>
-        <input type="number" name="Question2" value=""/><br>
-        Question 3 :(Type QCM)nb>=5<br>
-        <select name="choix">
-            <option>choix1</option>
-            <option>choix2</option>
-            <option>choix3</option>
-            <option>choix4</option>
-            <option>choix5</option>
-            <option>choix6</option>
-        </select><br>
-        Question 3 :(Type QCM)nb<5<br>
-        <input type="radio" name="proposition" value="Proposition1"/>Proposition1
-        <input type="radio" name="proposition" value="Proposition2"/>Proposition2
-        <input type="radio" name="proposition" value="Proposition3"/>Proposition3<br>
-        <input type="submit" value="Envoyer vos réponses " name="envoyer" /> 
-    </form> 
-<?php endif; ?>
+<p>
+    <a href="<?php echo $this->url('modifierEnquete', array('id'=>$enquete->getId())); ?>">éditer</a> • 
+    <a href="<?php echo $this->url('supprimerEnquete', array('id'=>$enquete->getId())); ?>">supprimer</a> •
+    <a href="<?php echo $this->url('resultatsEnquete', array('id'=>$enquete->getId())); ?>">résultats</a>
+</p>
