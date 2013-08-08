@@ -193,7 +193,7 @@ $settings = array(
      * 
      * Should user's state be used in the registration/login process?
      */
-    'enable_user_state' => true,
+    'enable_user_state' => false,
     
     /**
      * Default user state upon registration
