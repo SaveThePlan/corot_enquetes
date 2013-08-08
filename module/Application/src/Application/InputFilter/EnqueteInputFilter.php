@@ -8,26 +8,74 @@ use Zend\Validator\Regex;
 
 class EnqueteInputFilter extends InputFilter
 {
-    public function __construct()
-    {
-        $input = new Input("titre");
-        $input->isRequired();
+    /**
+     *
+     * @var PropositionMapper
+     */
+    protected $mapperPropositions;
+    
+    /**
+     * $listeQuestions est un tableau d'objets Question
+     * 
+     * @param array $listeQuestions
+     */
+    public function __construct($listeQuestions, Adapter $adapter) {
+        parent::__construct("enquete");
         
-        $this->add($input);
+        $this->mapperPropositions = new PropositionMapper($adapter);
         
-        $input = new Input("auteur");
-        $input->isRequired();
         
-        $this->add($input);
         
-        $input = new Input("annee");
-        $input->allowEmpty();
         
-        $validator = new Regex('/[0-9]{4}/');
-//        $validator = new Date();
-//        $validator->setFormat('YYYY');
-        $input->getValidatorChain()->addValidator($validator);
-       
-        $this->add($input);
+        foreach ($listeQuestions as $question) /* @var $question Question */
+        {
+            switch ($question->getType()) {
+
+                case "qcm":
+                    $filtre = $this->questionQcm($question);
+                    break;
+
+                case "nb":
+                    $filtre = $this->questionNb($question);
+                    break;
+
+                case "text":
+                default:
+                    $filtre = $this->questionText($question);
+                    break;
+            }
+            
+            $this->add($filtre);
+        }
     }
+    
+    
+     private function questionText(Question $question)
+    {
+         
+        $filtre = new Input('question'.$question->getId());
+        $filtre->isRequired();
+        //$filtre->allowEmpty();
+        
+        return $filtre;
+    }
+    
+    private function questionNb(Question $question)
+    {
+        $filtre = new Input('question'.$question->getId());
+        $filtre->isRequired();
+        /*
+        $validator = new Regex('/[0-9]{4}/');
+
+        $input->getValidatorChain()->addValidator($validator);
+        */
+        return $filtre;
+    }
+    
+    
+    private function questionQcm(Question $question)
+    {
+        return $filtre;
+    }
+    
 }
