@@ -1,0 +1,114 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Inquisitor'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                                      ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+                                      ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Inquisitor') ?></a>
+                    
+                    
+                    <!--test des routes - menu à revoir...-->
+                    <!--
+                    * Les Routes inquisitor
+                    * ---------------------
+                    * home             = ACCUEIL - public/index                 : / ()
+                    * repondreEnquete  = RÉPONDANT - public/repondre            : /enquete_##.html (id enquete)
+                    * listeEnquetes    = MEMBRE - membre/index                  : /liste-enquetes_##.html (id membre)
+                    * creerEnquete     = CRÉER ENQUÊTE - membre/creer           : /creer-enquete.html ()
+                    * voirEnquete      = VOIR ENQUÊTE - membre/apercu           : /apercu-enquete_##.html (id enquete)
+                    * modifierEnquete  = MODIFIER ENQUÊTE - membre/modifier     : /editer-enquete_##.html (id enquete)
+                    * supprimerEnquete = SUPPRIMER ENQUÊTE - membre/supprimer   : /supprimer-enquete_##.html (id enquete)
+                    * resultatsEnquete = RÉSULTATS - membre/consulter           : /resultats-enquete_##.html (id enquete)
+                    * effacerDonnees   = EFFACER DONNÉES - membre/effacerData   : /effacer-donnees_##.html (id enquete)
+                    -->
+
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <!--route home-->
+                            <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                            
+                            <!--routes public-->
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Public 
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!--route home-->
+                                    <li><a href="<?php echo $this->url('home'); ?>">accueil</a></li>
+    
+                                    <!--route repondreEnquete-->
+                                    <li><a href="<?php echo $this->url('repondreEnquete', array('id'=>1)); ?>">répondre à une enquête</a></li>
+                                </ul>
+                            </li>
+                            <!-- FIN routes public-->
+                            
+                            <!--routes membre, nécessite connexion et authentification-->
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Membre 
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!--route listeEnquetes-->
+                                    <li><a href="<?php echo $this->url('listeEnquetes', array('id'=>1)); ?>">accueil membre</a></li>
+
+                                    <!--route creerEnquete-->
+                                    <li><a href="<?php echo $this->url('creerEnquete'); ?>">nouvelle enquête</a></li>
+
+                                    <!--route voirEnquete-->
+                                    <li><a href="<?php echo $this->url('voirEnquete', array('id'=>1)); ?>">aperçu enquête</a></li>
+
+                                    <!--route modifierEnquete-->
+                                    <li><a href="<?php echo $this->url('modifierEnquete', array('id'=>1)); ?>">modifier enquête</a></li>
+
+                                    <!--route supprimerEnquete-->
+                                    <li><a href="<?php echo $this->url('supprimerEnquete', array('id'=>1)); ?>">supprimer enquête</a></li>
+
+                                    <!--route resultatsEnquete-->
+                                    <li><a href="<?php echo $this->url('resultatsEnquete', array('id'=>1)); ?>">résultats enquête</a></li>
+
+                                    <!--route effacerDonnees-->
+                                    <li><a href="<?php echo $this->url('effacerDonnees', array('id'=>1)); ?>">effacer les données (réponses)</a></li>
+                                </ul>
+                            </li>
+                            <!-- FIN routes membre-->
+                            
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                    <!-- FIN test des routes - menu à revoir...-->
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <?php echo $this->content; ?>
+            <hr>
+            <footer>
+                <p>&copy; 2012 - <?php echo date('Y') ?> by Next Formation CDI Corot Team. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

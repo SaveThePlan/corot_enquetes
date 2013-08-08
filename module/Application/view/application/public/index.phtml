@@ -1,0 +1,54 @@
+<div id="wellcome">
+    <h1>Bienvenue sur <em>Inquisitor</em></h1>
+    <h4>
+Inscrivez vous gratuitement pour créer, partager et
+exploiter vos propes enquêtes et sondages!</h4>
+</div>
+
+
+
+
+
+
+<div id="widgetLogin">
+    <?php // affichage du login form avec le widget zfcuser ?> 
+    <?php echo $this->zfcUserLoginWidget(); ?>
+</div>
+
+
+
+
+
+
+<div id="widgetRegister">
+    <?php // affichage du refister form avec le view helper de form ?>
+    <h1><?php echo $this->translate('Register'); ?></h1>
+    <?php
+    $registerForm->prepare();
+    $registerForm->setAttribute('action', $this->url('zfcuser/register'));
+    $registerForm->setAttribute('method', 'post');
+    ?>
+    <?php //echo $this->form($registerForm); ?>
+    <?php echo $this->form()->openTag($registerForm) ?>
+    <dl class="zend_form">
+        <?php foreach ($registerForm as $element): ?>
+            <?php if (!$element instanceof Zend\Form\Element\Button): ?>
+                <dt><?php echo $this->formLabel($element) ?></dt>
+            <?php endif ?>
+            <?php if ($element instanceof Zend\Form\Element\Button): ?>
+                <dd><?php echo $this->formButton($element) ?></dd>
+            <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
+                <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
+            <?php else: ?>
+                <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
+            <?php endif ?>
+        <?php endforeach; ?>
+        <?php //echo $this->formInput('first_name'); ?>
+    </dl>
+    <?php if ($this->redirect): ?>
+        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+    <?php endif ?>
+    <?php echo $this->form()->closeTag() ?>
+</div>
+
+
