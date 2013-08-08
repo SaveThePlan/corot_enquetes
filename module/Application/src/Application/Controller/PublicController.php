@@ -56,12 +56,6 @@ class PublicController extends AbstractActionController {
                 'formEnquete' => $formEnquete
                 )
         );
-        
-        return new ViewModel(
-                array(
-                //'enquetes' => $enquetes 
-                )
-        );
     }
 
 }
