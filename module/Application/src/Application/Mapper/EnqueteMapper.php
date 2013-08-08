@@ -32,7 +32,13 @@ class EnqueteMapper
     {
         $id = (int)$id;
         
-        $resultset = $this->gateway->select(array('id' => $id));
+//        $resultset = $this->gateway->select(array('id' => $id));
+        
+        $select = new \Zend\Db\Sql\Select();
+        $select->from($this->gateway->getTable())
+                ->where(array('id'=> $id));
+        
+        $resultset = $this->gateway->selectWith($select);
         
         
         if(!$resultset || $resultset->count() > 1) { // on renvoit false si aucun resultat ou plusieurs résultats
@@ -56,7 +62,11 @@ class EnqueteMapper
     public function getAllByIdUser($idUser)
     {
         $idUser = (int) $idUser;
-        $resultset = $this->gateway->select(array('id_user' => $idUser));
+        $select = new \Zend\Db\Sql\Select();
+        $select->from($this->gateway->getTable())
+                ->where(array('id_user' => $idUser))
+                ->order(array('id ASC'));
+        $resultset = $this->gateway->selectWith($select);
         
         //si aucune enquête
         if (!$resultset) {
