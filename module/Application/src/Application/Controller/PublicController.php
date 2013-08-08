@@ -49,7 +49,12 @@ class PublicController extends AbstractActionController {
         
         
         $formEnquete = new \Application\Form\EnqueteForm($enquete->getListeQuestions(), $adapter);
-                
+        
+        $element = new \Zend\Form\Element\Submit("valider");
+        $element->setValue("Valider")
+                 ->setAttribute("class", " btn btn-primary");
+        $formEnquete->add($element);
+        
         return new ViewModel(
                 array(
                 'enquete' => $enquete,
