@@ -2,14 +2,13 @@
 /* @var $enquete \Application\Entity\Enquete */
 ?>
 <h2><?php echo $enquete->getTitre(); ?></h2>
-<h3>Description :</h3>
 <p><?php echo nl2br($enquete->getDescription()); ?></p>
 
 
-<?php //liste des questions
-if ($enquete->getListeQuestions()):
-    echo $this->form($formEnquete);
-endif; ?>
+<?php 
+//affichage formulaire
+echo $this->form($formEnquete);
+?>
 
 <p>
     <a href="<?php echo $this->url('modifierEnquete', array('id'=>$enquete->getId())); ?>">éditer</a> • 

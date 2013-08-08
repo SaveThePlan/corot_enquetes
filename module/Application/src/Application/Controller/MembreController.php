@@ -16,6 +16,7 @@ namespace Application\Controller;
 //use Zend\Mvc\Controller\AbstractActionController;
 
 
+use Application\Form\EnqueteForm;
 use Application\Mapper\EnqueteMapper;
 use Application\Mapper\QuestionMapper;
 use Zend\View\Model\ViewModel;
@@ -104,12 +105,7 @@ class MembreController extends UserController
         $mapperQuestion = new QuestionMapper($adapter);
         $listeQuestions = $mapperQuestion->getAllByIdEnquete($idEnquete);
         
-        if($listeQuestions) {
-            $enquete->setListeQuestions($listeQuestions);
-        }
-        
-        
-        $formEnquete = new \Application\Form\EnqueteForm($enquete->getListeQuestions(), $adapter);
+        $formEnquete = new EnqueteForm($listeQuestions, $adapter);
                 
         return new ViewModel(
                 array(

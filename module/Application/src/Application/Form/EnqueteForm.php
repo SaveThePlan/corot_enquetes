@@ -56,12 +56,6 @@ class EnqueteForm extends Form {
             $this->add($element);
         }
         
-        
-        
-//        $submit = new \Zend\Form\Element\Submit('submit');
-//        $submit->setValue('Valider');
-//        $this->add($submit);
-        
     }
     
     
