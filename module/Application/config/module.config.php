@@ -247,6 +247,16 @@ return array(
                 'base_dir' => __DIR__ . '/../language',
                 'pattern' => '%s.mo',
             ),
+            array(
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language/form',
+                'pattern' => '%s.mo',
+            ),
+            array(
+                'type' => 'phparray',
+                'base_dir' => __DIR__. '/../language/form_errors',
+                'pattern' => '%s.php'
+            ),
         ),
     ),
     'controllers' => array(
