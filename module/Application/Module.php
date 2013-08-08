@@ -86,9 +86,15 @@ class Module {
                 // Override ZfcUser User Mapper factory
                 'zfcuser_user_mapper' => function ($sm) {
                     $options = $sm->get('zfcuser_module_options');
-                    $mapper = new \Application\Mapper\UserMapper($sm->get('Zend\Db\Adapter\Adapter'));
                     $entityClass = $options->getUserEntityClass();
-                    $mapper->setHydrator(new \ZfcUser\Mapper\UserHydrator());
+
+//                    $mapper = new \Application\Mapper\UserMapper($sm->get('Zend\Db\Adapter\Adapter'));
+                    $mapper = new \Application\Mapper\UserMapper();
+                    $mapper->setDbAdapter($sm->get('Zend\Db\Adapter\Adapter'));
+                    $mapper->setEntityPrototype(new \Application\Entity\User());
+                    $mapper->setHydrator(new \Application\Mapper\UserHydrator());
+                    
+//                    $mapper->setHydrator(new \ZfcUser\Mapper\UserHydrator());
                     $mapper->setTableName($options->getTableName());
                     return $mapper;
                 },

@@ -6,7 +6,7 @@ namespace Application\Entity;
  * Description of User
  *
  */
-class User {
+class User implements \ZfcUser\Entity\UserInterface {
 
     /**
      *
@@ -18,13 +18,13 @@ class User {
      *
      * @var string
      */
-    protected $nom;
+    protected $name;
 
     /**
      *
      * @var string
      */
-    protected $prenom;
+    protected $firstname;
 
     /**
      *
@@ -36,7 +36,7 @@ class User {
      *
      * @var string
      */
-    protected $mdp;
+    protected $password;
 
     /**
      *
@@ -44,37 +44,39 @@ class User {
      */
     private $listeEnquetes = array();
 
-    public function __construct($nom = "", $prenom = "", $email = "", $mdp = "") {
-        $this->setNom($nom);
-        $this->setPrenom($prenom);
+    
+    public function __construct($id=0, $name="", $firstname="", $email="", $password="") {
+        $this->setId($id);
+        $this->setName($name);
+        $this->setFirstname($firstname);
         $this->setEmail($email);
-        $this->setMdp($mdp);
+        $this->setPassword($password);
     }
-
+    
     public function getId() {
         return $this->id;
     }
 
     public function setId($id) {
-        $this->id = (int) $id;
+        $this->id = (int)$id;
         return $this;
     }
 
-    public function getNom() {
-        return $this->nom;
+    public function getName() {
+        return $this->name;
     }
 
-    public function setNom($nom) {
-        $this->nom = (string) $nom;
+    public function setName($name) {
+        $this->name = (string)$name;
         return $this;
     }
 
-    public function getPrenom() {
-        return $this->prenom;
+    public function getFirstname() {
+        return $this->firstname;
     }
 
-    public function setPrenom($prenom) {
-        $this->prenom = (string) $prenom;
+    public function setFirstname($firstname) {
+        $this->firstname = (string)$firstname;
         return $this;
     }
 
@@ -83,18 +85,19 @@ class User {
     }
 
     public function setEmail($email) {
-        $this->email = (string) $email;
+        $this->email = (string)$email;
         return $this;
     }
 
-    public function getMdp() {
-        return $this->mdp;
+    public function getPassword() {
+        return $this->password;
     }
 
-    public function setMdp($mdp) {
-        $this->mdp = (string) $mdp;
+    public function setPassword($password) {
+        $this->password = (string)$password;
         return $this;
     }
+
 
     public function getListeEnquetes() {
         return $this->listeEnquetes;
@@ -104,5 +107,31 @@ class User {
         $this->listeEnquetes[] = $enquete;
         return $this;
     }
+    
+    public function getDisplayName() {
+        return $this;
+    }
+
+    public function getState() {
+        return $this;
+    }
+
+    public function getUsername() {
+        return $this;
+    }
+
+    public function setDisplayName($displayName) {
+        return $this;
+    }
+
+    public function setState($state) {
+        return $this;
+    }
+
+    public function setUsername($username) {
+        return $this;
+    }
+
+    
 
 }
