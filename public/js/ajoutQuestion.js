@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(function() {
     console.log('hello ! je suis un nouveau script');
     console.log('toto');
@@ -23,3 +24,38 @@ $(function() {
  </div>
  
  */
+=======
+//toggle message and form, javascript enable
+function init() {
+    $('#jsrequired').hide();
+    $('#content form').show();
+};
+
+
+
+//event 'onchange' on radio button
+function events() {
+    $('.question .prop ')
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//bind events() 
+$(document).bind();
+
+
+//call init function on document ready
+$(document).ready(init);
+
+>>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e

@@ -10,7 +10,11 @@ $this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css
 
 <h1>Nouvelle enquête</h1>
 
+<<<<<<< HEAD
 <?php // echo $this->form($formCreation); ?>
+=======
+<p id="jsrequired">Vous devez activer javascript dans votre navigateur pour pouvoir ajouter une enquête...</p>
+>>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e
 
 <?php echo $this->form()->openTag($formCreation); ?>
 
@@ -20,7 +24,11 @@ $this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css
 <?php echo $this->formLabel($formCreation->get("description")); ?>
 <?php echo $this->formElement($formCreation->get("description")); ?>
 
+<<<<<<< HEAD
 <div id="question">
+=======
+<div class="question">
+>>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e
 
     <?php echo $this->formLabel($formCreation->get("question")); ?>
     <?php echo $this->formElement($formCreation->get("question")); ?>
@@ -30,6 +38,11 @@ $this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css
 
     <?php echo $this->formLabel($formCreation->get("proposition")); ?>
     <?php echo $this->formElement($formCreation->get("proposition")); ?>
+<<<<<<< HEAD
+=======
+    
+    <?php echo $this->formElement($formCreation->get('validprop')); ?>
+>>>>>>> 89bbd42724997f2e0a8d74ef23e5fc9eb2c1611e
 
 </div>
 
