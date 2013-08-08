@@ -42,13 +42,13 @@ class CreerForm extends Form {
         ));
         $this->add($element);
 
-        $element = new \Zend\Form\Element\Text('proposition');
-        $element->setLabel('Proposition')->setLabelAttributes(array('class' => 'prop'))
+        $element = new \Zend\Form\Element\Text('proposition[]');
+        $element->setLabel('Propositions')->setLabelAttributes(array('class' => 'prop'))
                 ->setAttributes(array('class' => 'prop'));
         $this->add($element);
 
-        $validerProp = new \Zend\Form\Element\Button('validprop');
-        $validerProp->setValue(0)->setLabel('ajouter')
+        $validerProp = new \Zend\Form\Element\Button('ajoutprop');
+        $validerProp->setValue(0)->setLabel('ajouter une proposition')
                 ->setAttributes(array('class' => 'prop'));
         $this->add($validerProp);
     }
