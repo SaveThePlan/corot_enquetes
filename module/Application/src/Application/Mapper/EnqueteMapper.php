@@ -30,6 +30,21 @@ class EnqueteMapper
      */
     public function getById($id)
     {
+        $id = (int)$id;
+        
+        $resultset = $this->gateway->select(array('id' => $id));
+        
+        
+        if(!$resultset || $resultset->count() > 1) { // on renvoit false si aucun resultat ou plusieurs résultats
+            return FALSE;
+        }
+        
+        //Une seule ligne dans resultset = OK
+        $enquete = new Enquete();
+        $hydrator = new ClassMethods();
+        
+        $hydrator->hydrate($resultset->toArray()[0], $enquete);
+        
         return $enquete;
     }
             
@@ -45,7 +60,7 @@ class EnqueteMapper
         
         //si aucune enquête
         if (!$resultset) {
-            throw new Exception("Could not find resulset for user : $idUser");
+            return false; //renvoi faux pour pouvoir tester le retour dans le controlleur
         }
 
         //fetch each row into an object Enquete...

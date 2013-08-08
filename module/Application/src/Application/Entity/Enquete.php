@@ -75,6 +75,16 @@ class Enquete {
         return $this;
     }
 
+    /**
+     * 
+     * @param array(Question) $listeQuestions
+     * @return \Application\Entity\Enquete
+     */
+    public function setListeQuestions($listeQuestions) { // ce setter est un peu exceptionnel, il permet un ajout direct du tableau complet
+        $this->listeQuestions = $listeQuestions;
+        return $this;
+    }
+
 
 
 }

@@ -5,6 +5,7 @@ namespace Application\Mapper;
 use Application\Entity\Question;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
  * Description of EnqueteMapper
@@ -38,6 +39,26 @@ class QuestionMapper
      */
     public function getAllByIdEnquete($idEnquete)
     {
+        
+        $idEnquete = (int)$idEnquete;
+        
+        $resultset = $this->gateway->select(array('id_enquete' => $idEnquete));
+        
+        if(!$resultset) {
+            return FALSE;
+        }
+        
+        $listeQuestions = array();
+        
+        foreach ($resultset as $row) {
+            $question = new Question();
+            
+            $hydrator = new ClassMethods();
+            $hydrator->hydrate((array)$row, $question);
+            
+            $listeQuestions[] = $question;
+        }
+        
         return $listeQuestions;
     }
     

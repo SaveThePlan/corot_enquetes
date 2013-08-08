@@ -1,21 +1,26 @@
 <?php
+/* @var $enquete \Application\Entity\Enquete */
 ?>
-<h2>titre de l'enquéte</h2>
+<h2><?php echo $enquete->getTitre(); ?></h2>
 <h3>Description :</h3>
-<p><?php echo'text text text text text text text text text text text text <br>
-text text text text text text text text text text text text text <br>
-text text text text text text text text text text text text text  <br>
-text text text text text text text text text text text text <br>
-text text text text text text text text text text text text text <br>
-text text text text text text text text text text text text text.  <br>'
-?></p>
-<div>
-<form action="" method="post">
-    Question < :(Type Texte)<br>
+<p><?php echo nl2br($enquete->getDescription()); ?></p>
+
+
+<?php //liste des questions
+if ($enquete->getListeQuestions()):
+    ?>
+    <form action="" method="post">
+
+        <?php foreach ($enquete->getListeQuestions() as $question): /* @var $question \Application\Entity\Question */ ?>
+            <label for="todo"><?php echo $question->getLibelle(); ?></label>
+        <?php endforeach; ?>
+
+
+        Question 1 :(Type Texte)<br>
         <textarea name="question1" value=""></textarea><br>
-    Question 2 :(Type Nombre)<br>
+        Question 2 :(Type Nombre)<br>
         <input type="number" name="Question2" value=""/><br>
-    Question 3 :(Type QCM)nb>=5<br>
+        Question 3 :(Type QCM)nb>=5<br>
         <select name="choix">
             <option>choix1</option>
             <option>choix2</option>
@@ -24,10 +29,10 @@ text text text text text text text text text text text text text.  <br>'
             <option>choix5</option>
             <option>choix6</option>
         </select><br>
-    Question 3 :(Type QCM)nb<5<br>
-            <input type="radio" name="proposition" value="Proposition1"/>Proposition1
-            <input type="radio" name="proposition" value="Proposition2"/>Proposition2
-            <input type="radio" name="proposition" value="Proposition3"/>Proposition3<br>
-            <input type="submit" value="Envoyer vos réponses " name="envoyer" /> 
-</form> 
-</div>
+        Question 3 :(Type QCM)nb<5<br>
+        <input type="radio" name="proposition" value="Proposition1"/>Proposition1
+        <input type="radio" name="proposition" value="Proposition2"/>Proposition2
+        <input type="radio" name="proposition" value="Proposition3"/>Proposition3<br>
+        <input type="submit" value="Envoyer vos réponses " name="envoyer" /> 
+    </form> 
+<?php endif; ?>
