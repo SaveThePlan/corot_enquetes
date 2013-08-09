@@ -53,12 +53,15 @@ class ReponseMapper
      */
     public function countRepondantsByIdEnquete($idEnquete)
     {
-        $id = (int)$id;
+        $idEnquete = (int)$idEnquete;
                 
         $select = new Select();
-        $select->from($this->gateway->getTable())
-                ->where(array('id'=> $id));
-        
+        $select->columns(array('nb' => 'COUNT(DISTINCT uid_repondant)'))
+                ->from('reponse')
+//                ->from(array('r' => 'reponse'))
+                ->join(array('q' => 'question'), 'r.id_question = q.id', '')
+                ->where(array('q.id_enquete'=> $idEnquete));
+        var_dump($select->getSqlString());
         $resultset = $this->gateway->selectWith($select);
         
         
@@ -66,13 +69,7 @@ class ReponseMapper
             return FALSE;
         }
         
-        //Une seule ligne dans resultset = OK
-        $enquete = new Enquete();
-        $hydrator = new ClassMethods();
-        
-        $hydrator->hydrate($resultset->toArray()[0], $enquete);
-        
-        return $enquete;
+        return $resultset;
     }
     
     /**
@@ -83,6 +80,11 @@ class ReponseMapper
      */
     public function add(Reponse $reponse)
     {
+        $hydrator = new ClassMethods();
+        $set = $hydrator->extract($reponse);
+        
+        return $this->gateway->insert($set);
+        
     }
             
     
