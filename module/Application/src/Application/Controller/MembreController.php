@@ -25,8 +25,9 @@ use Zend\Http\Request;
 use Zend\View\Model\ViewModel;
 use ZfcUser\Controller\UserController;
 
-class MembreController extends UserController {
-    
+class MembreController extends UserController
+{
+
     /**
      *
      * @var Request
@@ -38,7 +39,8 @@ class MembreController extends UserController {
      * 
      * @return ViewModel
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         /* authentification user */
         $this->userAuth();
 
@@ -60,18 +62,75 @@ class MembreController extends UserController {
         );
     }
 
-    public function creerAction() {
+    public function creerAction()
+    {
         $formCreation = new CreerForm();
-        
-        if($this->request->isPost()) {
+
+        if ($this->request->isPost()) {
             $donneesSaisies = $this->request->getPost()->toArray(); // == $_POST
-            
             //remplir form avec les POST
             $formCreation->setData($donneesSaisies);
             
-            var_dump($formCreation);
+            // Input filter 
             
-//            $formCreation->setInputFilter(new ContactInputFilter());
+            //echo '<pre>';
+            //var_dump($donneesSaisies);
+            //echo '</pre>';
+            // Creation de l objet Enquete
+            $enqueteEntity = new \Application\Entity\Enquete;
+            $enqueteEntity->setTitre($donneesSaisies['titre']);
+            $enqueteEntity->setDescription($donneesSaisies['description']);
+            //echo '<pre>';
+            var_dump($enqueteEntity);
+            //echo '</pre>';
+            //unset($donneesSaisies['titre']);
+            //unset($donneesSaisies['description']);
+            // $count = count($donneesSaisies)/3;
+            //var_dump($formCreation);
+            // Liste de questions
+            /* foreach() {
+
+              }
+             * 
+             */
+            
+            // Creation de la liste de Questions
+            $i = 0;
+            while (isset($donneesSaisies['question' . $i], $donneesSaisies['type' . $i]) && strlen($donneesSaisies['question' . $i])) {
+                var_dump($donneesSaisies['question' . $i]);
+
+
+
+                $question = new \Application\Entity\Question(
+                        0, $donneesSaisies['question' . $i], $donneesSaisies['type' . $i]);
+
+                if ($donneesSaisies['type' . $i] == 'qcm') {
+                    // si les 2 premieres questions ne sont pas chaine vide on garde la question
+                    if (isset($donneesSaisies['proposition' . $i][0], $donneesSaisies['proposition' . $i][1]) && strlen($donneesSaisies['proposition' . $i][0]) && $donneesSaisies['proposition' . $i][1] != "") {
+                        //echo 'merde :'.$donneesSaisies['proposition' . $i].'<br />';
+                        echo 'taille:'.strlen($donneesSaisies['proposition' . $i][0]).'<br />';
+                        foreach ($donneesSaisies['proposition' . $i] as $value) {
+                            $proposition = new \Application\Entity\Proposition(0, $value);
+                            $question->addListeChoix($proposition);
+                        }
+                    }
+                    else {
+                        unset($question);
+                    }
+                }
+                
+                $listeQuestions[] = $question;
+                
+                var_dump($question);
+
+
+
+
+                $i++;
+            }
+
+            
+            $formCreation->setInputFilter(new \Application\InputFilter\CreerInputFilter($listeQuestions, $adapter));
 //            //valider le form selon les inputfilter
 //            if($formCreation->isValid()){
 //                $donneesFiltrees = $formCreation->getData();
@@ -93,7 +152,6 @@ class MembreController extends UserController {
 //                
 //                return $this->redirect()->toRoute('liste_contacts');
 //            }
-                    
         }
 
         return new ViewModel(
@@ -103,7 +161,8 @@ class MembreController extends UserController {
         );
     }
 
-    public function modifierAction() {
+    public function modifierAction()
+    {
         return new ViewModel(
                 array(
 //'enquetes' => $enquetes 
@@ -111,7 +170,8 @@ class MembreController extends UserController {
         );
     }
 
-    public function supprimerAction() {
+    public function supprimerAction()
+    {
         return new ViewModel(
                 array(
 //'enquetes' => $enquetes 
@@ -119,7 +179,8 @@ class MembreController extends UserController {
         );
     }
 
-    public function apercuAction() {
+    public function apercuAction()
+    {
         $this->userAuth();
 // TODO sécurité : comment tester si l'enquête demandée appartient bien à l'utilisateur...
 // peut-être en passant par une liste d'enquêtes stckées dans le user ?
@@ -149,7 +210,8 @@ class MembreController extends UserController {
         );
     }
 
-    public function consulterAction() {
+    public function consulterAction()
+    {
         $this->userAuth();
 // TODO sécurité : comment tester si l'enquête demandée appartient bien à l'utilisateur...
 // peut-être en passant par une liste d'enquêtes stckées dans le user ?
@@ -197,7 +259,8 @@ class MembreController extends UserController {
         );
     }
 
-    public function effacerAction() {
+    public function effacerAction()
+    {
         return new ViewModel(
                 array(
                 //'enquetes' => $enquetes 
@@ -211,7 +274,8 @@ class MembreController extends UserController {
      * 
      * @return void
      */
-    private function userAuth() {
+    private function userAuth()
+    {
         /* redirection vers page de login si user inconnu... */
         // desactivé pour le moment car pénible de se connecter à chaque fois...
 //        if (!$this->zfcUserAuthentication()->hasIdentity()) {
