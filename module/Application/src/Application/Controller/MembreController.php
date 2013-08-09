@@ -16,13 +16,21 @@ namespace Application\Controller;
 //use Zend\Mvc\Controller\AbstractActionController;
 
 
+use Application\Form\CreerForm;
 use Application\Form\EnqueteForm;
 use Application\Mapper\EnqueteMapper;
 use Application\Mapper\QuestionMapper;
+use Zend\Http\Request;
 use Zend\View\Model\ViewModel;
 use ZfcUser\Controller\UserController;
 
 class MembreController extends UserController {
+    
+    /**
+     *
+     * @var Request
+     */
+    protected $request;
 
     /**
      * index membre = liste enquêtes
@@ -52,7 +60,40 @@ class MembreController extends UserController {
     }
 
     public function creerAction() {
-        $formCreation = new \Application\Form\CreerForm();
+        $formCreation = new CreerForm();
+        
+        if($this->request->isPost()) {
+            $donneesSaisies = $this->request->getPost()->toArray(); // == $_POST
+            
+            //remplir form avec les POST
+            $formCreation->setData($donneesSaisies);
+            
+            var_dump($formCreation);
+            
+//            $formCreation->setInputFilter(new ContactInputFilter());
+//            //valider le form selon les inputfilter
+//            if($formCreation->isValid()){
+//                $donneesFiltrees = $formCreation->getData();
+//                
+//                $gateway = new ContactGateway();
+//                $contact = new Contact();
+//                
+//                //remplir l'objet avec le tableau de valeursn en utilisant les setters (ou mm)
+//                $hydrator = new ClassMethods();
+//                $hydrator->hydrate($donneesFiltrees, $contact);
+//                $contact->setVille(new Ville($donneesFiltrees['cp']));
+//                
+//                
+//                if($gateway->insert($contact)) {
+//                    $this->flashMessenger()->addSuccessMessage("le contact a bien été créé");
+//                } else {
+//                    $this->flashMessenger()->addErrorMessage("une erreur est survenue, le contact n'a pu être créé");
+//                }
+//                
+//                return $this->redirect()->toRoute('liste_contacts');
+//            }
+                    
+        }
 
         return new ViewModel(
                 array(

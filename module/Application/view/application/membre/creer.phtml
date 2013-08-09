@@ -26,6 +26,8 @@ $this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css
         <?php echo $this->formLabel($formCreation->get("question")); ?>
         <?php echo $this->formElement($formCreation->get("question")); ?>
 
+        <?php echo $this->formElement($formCreation->get("suppquest")); ?>
+
         <?php echo $this->formLabel($formCreation->get("type")); ?>
         <?php echo $this->formElement($formCreation->get("type")); ?>
 
@@ -35,8 +37,6 @@ $this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css
         <?php echo $this->formElement($formCreation->get("proposition[]")); ?>
         <?php echo $this->formElement($formCreation->get("proposition[]")); ?>
         
-        <?php echo $this->formElement($formCreation->get("suppquest")); ?>
-
     </div>
 </div>
 

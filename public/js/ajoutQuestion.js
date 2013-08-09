@@ -14,6 +14,10 @@ function init() {
         addProposition(this);
     });
 
+    $(document).on('click', "button[name='suppquest']", function() {
+        suppQuestion(this);
+    });
+
     $("#ajoutquest").on('click', function() {
         addQuestion($('.question').length);
     });
@@ -22,8 +26,7 @@ function init() {
     $(".question").remove();
     addQuestion($(".question").length);
 
-}
-;
+};
 
 
 function checktype(input) {
@@ -43,15 +46,15 @@ function checktype(input) {
             break;
     }
 
-}
-;
+};
 
 function addProposition(button) {
-    var input = $("input[name='proposition[]']")[0];
+    var input = $(blocSource).find("input[name='proposition[]']")[0];
     var input2 = $(input).clone();
-    $(input2).val("");
+    $(input2).val("").attr('name', modifAttr($(input2).attr('name'), $(button).attr('name').substr('ajoutprop'.length)));
+    $(input2).show();
     $(button).parent().append($(input2));
-}
+};
 
 
 
@@ -73,9 +76,15 @@ function addQuestion(numref) {
         $(this).attr('name', modifAttr($(this).attr('name'), numref));
     });
 
+    //chgt attribut for des <button 'ajoutprop'>
+    var inputs = $(blocQuestion).find("button[name='ajoutprop']");
+    inputs.each(function() {
+        $(this).attr('name', modifAttr($(this).attr('name'), numref));
+    });
+
 
     $("#questCont").append($(blocQuestion));
-}
+} ;
 
 
 function modifAttr(string, num) {
@@ -85,11 +94,20 @@ function modifAttr(string, num) {
         var stringModif = string + num;
     }
     
-    console.log(string + ' --> ' + stringModif);
-
     return stringModif;
 
-}
+};
+
+
+function suppQuestion(button) {
+  var blocQuestCourant = $(button).parent();
+  var inputs = $(blocQuestCourant).find('input');
+  $(inputs).each(function() {
+      $(this).val("");
+  });
+  $(blocQuestCourant).hide();
+};
+
 
 
 

@@ -52,7 +52,7 @@ class CreerForm extends Form {
         $this->add($element);
 
         $suppQuest = new Button('suppquest');
-        $suppQuest->setLabel('supprimer');
+        $suppQuest->setLabel('Supprimer la question');
         $this->add($suppQuest);
 
         $ajoutQuest = new Button('ajoutquest');
