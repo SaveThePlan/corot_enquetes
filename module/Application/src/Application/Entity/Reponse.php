@@ -27,25 +27,43 @@ class Reponse
      * @var string 
      */
     protected $contenu;
+    
+     /**
+     *
+     * @var int 
+     */
+    protected $idQuestion;
+    
+     /**
+     *
+     * @var int 
+     */
+    protected $idProposition;
 
+    
+    // Suppresion des prop questions et choix
     /**
      *
      * @var Question
      */
-    private $question;
+   // private $question;
 
     /**
      *
      * @var Proposition
      */
-    private $choix;
+   // private $choix;
     
-    function __construct($id=0, $uidRepondant="", $contenu="", Question $question = NULL, Proposition $choix = NULL) {
+    
+    // Question $question = NULL, Proposition $choix = NULL
+    function __construct($id=0, $uidRepondant="", $contenu="", $idProposition=null, $idQuestion=0) {
         $this->setId($id);
         $this->setUidRepondant($uidRepondant);
         $this->setContenu($contenu);
-        $this->question = $question;
-        $this->choix = $choix;
+       // $this->question = $question;
+        //$this->choix = $choix;
+        $this->idProposition = $idProposition;
+        $this->idQuestion = $idQuestion;
     }
 
     public function getId()
@@ -85,6 +103,7 @@ class Reponse
      * 
      * @return \Entity\Question
      */
+    /*
     public function getQuestion()
     {
         return $this->question;
@@ -95,11 +114,14 @@ class Reponse
         $this->question = $question;
         return $this;
     }
+     * 
+     */
 
     /**
      * 
      * @return \Entity\Proposition
      */
+    /*
     public function getChoix()
     {
         return $this->choix;
@@ -110,6 +132,30 @@ class Reponse
         $this->choix = $choix;
         return $this;
     }
+     * 
+     */
+    public function getIdQuestion()
+    {
+        return $this->idQuestion;
+    }
+
+    public function setIdQuestion($idQuestion)
+    {
+        $this->idQuestion = (int) $idQuestion;
+        return $this;
+    }
+
+    public function getIdProposition()
+    {
+        return $this->idProposition;
+    }
+
+    public function setIdProposition($idProposition)
+    {
+        $this->idProposition = $idProposition;
+        return $this;
+    }
+
 
 
 }

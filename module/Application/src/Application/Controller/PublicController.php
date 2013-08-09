@@ -4,8 +4,10 @@ namespace Application\Controller;
 
 use Application\Mapper\EnqueteMapper;
 use Application\Mapper\QuestionMapper;
+use Application\Mapper\ReponseMapper;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 class PublicController extends AbstractActionController
 {
@@ -29,10 +31,6 @@ class PublicController extends AbstractActionController
 
     public function repondreAction()
     {
-        //todo action répondre à un questionnaire...
-
-
-
 
         $idEnquete = (int) $this->params('id');
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
@@ -56,40 +54,80 @@ class PublicController extends AbstractActionController
 
         $formEnquete = new \Application\Form\EnqueteForm($enquete->getListeQuestions(), $adapter);
 
-        
-        // PAS FINI TODO
         if ($this->request->isPost()) {
             $donneesSaisies = $this->request->getPost();
-
+//            echo '<pre>';
+//            var_dump($donneesSaisies);
+//            echo '</pre>';
+            //$formEnquete->setData();
             $formEnquete->setData($donneesSaisies);
+            //$formEnquete->
             $formEnquete->setInputFilter(new \Application\InputFilter\EnqueteInputFilter($enquete->getListeQuestions(), $adapter));
 
-            if ($form->isValid()) {
-                
-                
-                
-                
+            if ($formEnquete->isValid()) {
+                echo 'valid';
+
                 $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
                 $mapper = new ReponseMapper($adapter);
 
-                $donneesFiltrees = $form->getData();
+                $donneesFiltrees = $formEnquete->getData();
+                //echo 'ok';
+//                echo '<pre>';
+//                var_dump($donneesFiltrees);
+//                echo '</pre>';
+                // générer un id pour le repondant
+                $uiRepondant = uniqid('', false);
+                foreach ($donneesFiltrees as $nameQ => $valueQ) {
+                    $tabQ = explode('_', $nameQ);
+                    $idQ = $tabQ[2];
+                    //echo 'idQ' . $idQ . '<br />';
+                    $typeQ = $tabQ[1];
+                    //echo 'typeQ' . $typeQ . '<br />';
+                    // Si QCM
 
-                $livre = new Livre();
 
-                $hydrator = new ClassMethods();
-                $hydrator->hydrate($donneesFiltrees, $livre);
+                    if ($typeQ == "qcm") {
+                        $enr = array(
+                            "uid_repondant" => $uiRepondant,
+                            "contenu" => NULL,
+                            "id_question" => $idQ,
+                            "id_proposition" => $valueQ
+                        );
+                    } else {
+                        $enr = array(
+                            "uid_repondant" => $uiRepondant,
+                            "contenu" => $valueQ,
+                            "id_question" => $idQ,
+                            "id_proposition" => NULL
+                        );
+                    }
 
-                if ($mapper->add($livre)) {
-                    $this->flashMessenger()->addSuccessMessage("Le livre {$livre->getTitre()} a bien été inséré");
-                } else {
-                    $this->flashMessenger()->addErrorMessage("Une erreur s'est produite pendant l'insertion de {$livre->getTitre()}");
+
+
+
+                    $reponse = new \Application\Entity\Reponse();
+
+                    $hydrator = new ClassMethods();
+                    $hydrator->hydrate($enr, $reponse);
+
+//                    echo '<pre>';
+//                    var_dump($reponse);
+//                    echo '</pre>';
+
+
+                    if ($mapper->add($reponse)) {
+                        $this->flashMessenger()->addSuccessMessage("Merci d'avoir répondu à cette enquête");
+                    } else {
+                        $this->flashMessenger()->addErrorMessage("Une erreur s'est produite pendant l'envoi du formulaire");
+                    }
                 }
+
+
+
 
                 return $this->redirect()->toRoute('home');
             }
         }
-
-
 
 
         $element = new \Zend\Form\Element\Submit("valider");

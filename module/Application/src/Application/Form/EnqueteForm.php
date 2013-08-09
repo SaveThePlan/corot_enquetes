@@ -61,7 +61,7 @@ class EnqueteForm extends Form {
     }
 
     private function questionText(Question $question) {
-        $element = new Text('question' . $question->getId());
+        $element = new Text('question_text_' . $question->getId());
         $element->setLabel($question->getLibelle())
                 ->setAttributes(array(
                     'id' => 'question' . $question->getId()
@@ -71,7 +71,7 @@ class EnqueteForm extends Form {
     }
 
     private function questionNb(Question $question) {
-        $element = new Number('question' . $question->getId());
+        $element = new Number('question_nb_' . $question->getId());
         $element->setLabel($question->getLibelle())
                 ->setAttributes(array(
                     'id' => 'question' . $question->getId()
@@ -91,11 +91,11 @@ class EnqueteForm extends Form {
 
         // si il y a moins de 5 réponses possibles, on affiche des boutons radio
         if (count($listechoix) < 5) {
-            $element = new Radio('question' . $question->getId());
+            $element = new Radio('question_qcm_' . $question->getId() );
         } else {
 
             //sinon on affiche une liste
-            $element = new Select('question' . $question->getId());
+            $element = new Select('question_qcm_' . $question->getId() );
         }
 
         $element->setLabel($question->getLibelle());

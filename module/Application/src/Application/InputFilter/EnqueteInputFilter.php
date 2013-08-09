@@ -3,8 +3,11 @@
 namespace Application\InputFilter;
 
 use Zend\InputFilter\Input;
+use Application\Entity\Question;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\Regex;
+use Zend\Db\Adapter\Adapter;
+use Application\Mapper\PropositionMapper;
 
 class EnqueteInputFilter extends InputFilter
 {
@@ -20,7 +23,7 @@ class EnqueteInputFilter extends InputFilter
      * @param array $listeQuestions
      */
     public function __construct($listeQuestions, Adapter $adapter) {
-        parent::__construct("enquete");
+       // parent::__construct("enquete");
         
         $this->mapperPropositions = new PropositionMapper($adapter);
         
@@ -53,7 +56,7 @@ class EnqueteInputFilter extends InputFilter
      private function questionText(Question $question)
     {
          
-        $filtre = new Input('question'.$question->getId());
+        $filtre = new Input('question_text_'.$question->getId());
         $filtre->isRequired();
         //$filtre->allowEmpty();
         
@@ -62,7 +65,7 @@ class EnqueteInputFilter extends InputFilter
     
     private function questionNb(Question $question)
     {
-        $filtre = new Input('question'.$question->getId());
+        $filtre = new Input('question_nb_'.$question->getId());
         $filtre->isRequired();
         /*
         $validator = new Regex('/[0-9]{4}/');
@@ -75,6 +78,8 @@ class EnqueteInputFilter extends InputFilter
     
     private function questionQcm(Question $question)
     {
+        $filtre = new Input('question_qcm_'.$question->getId());
+        $filtre->isRequired();
         return $filtre;
     }
     
