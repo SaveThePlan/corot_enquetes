@@ -50,7 +50,7 @@ for ($i = 0; $i < count($enquete->getListeQuestions()); $i++):
             <tr>
                 <td><?php echo $resultat->getResultat()['min']; ?></td>
                 <td><?php echo $resultat->getResultat()['max']; ?></td>
-                <td><?php echo $resultat->getResultat()['moyenne']; ?></td>
+                <td><?php echo number_format($resultat->getResultat()['moyenne'], 2); ?></td>
                 <td><?php echo $resultat->getResultat()['somme']; ?></td>
             </tr>
 
