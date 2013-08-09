@@ -92,15 +92,15 @@ class EnqueteForm extends Form {
         // si il y a moins de 5 réponses possibles, on affiche des boutons radio
         if (count($listechoix) < 5) {
             $element = new Radio('question' . $question->getId());
-            $element->setLabel($question->getLibelle());
-            $element->setValueOptions($options);
         } else {
 
             //sinon on affiche une liste
             $element = new Select('question' . $question->getId());
-            $element->setLabel($question->getLibelle());
-            $element->setValueOptions($options);
         }
+
+        $element->setLabel($question->getLibelle());
+        $element->setValueOptions($options)
+                ->setValue($listechoix[0]->getId());
 
         return $element;
     }
