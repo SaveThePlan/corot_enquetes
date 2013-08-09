@@ -20,6 +20,7 @@ use Application\Form\CreerForm;
 use Application\Form\EnqueteForm;
 use Application\Mapper\EnqueteMapper;
 use Application\Mapper\QuestionMapper;
+use Application\Mapper\ReponseMapper;
 use Zend\Http\Request;
 use Zend\View\Model\ViewModel;
 use ZfcUser\Controller\UserController;
@@ -149,9 +150,38 @@ class MembreController extends UserController {
     }
 
     public function consulterAction() {
+        $this->userAuth();
+// TODO sécurité : comment tester si l'enquête demandée appartient bien à l'utilisateur...
+// peut-être en passant par une liste d'enquêtes stckées dans le user ?
+//recupère le paramètre get de l'url
+        $idEnquete = (int) $this->params('id');
+        $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+        $mapper = new EnqueteMapper($adapter);
+
+        $enquete = $mapper->getById($idEnquete);
+
+        if (!$enquete) {
+            $this->flashMessenger()->addErrorMessage("L'enquête demandée est inaccessible !");
+            return $this->redirect()->toRoute('listeEnquetes');
+        }
+
+//enquete ok : récupération de la liste des questions
+        $mapperQuestion = new QuestionMapper($adapter);
+        $listeQuestions = $mapperQuestion->getAllByIdEnquete($idEnquete);
+        
+        $enquete->setListeQuestions($listeQuestions);
+
+        $mapperResultat = new ReponseMapper($adapter);
+        $listeResultats = $mapperResultat->countRepondantsByIdEnquete($idEnquete);
+        
+        $enquete->setListeQuestions($listeQuestions);
+
+        $formEnquete = new EnqueteForm($listeQuestions, $adapter);
+
         return new ViewModel(
                 array(
-                //'enquetes' => $enquetes 
+            'enquete' => $enquete,
+            'formEnquete' => $formEnquete
                 )
         );
     }

@@ -31,7 +31,16 @@ class Enquete {
      */
     protected $description;
     
+    /**
+     *
+     * @var int
+     */
+    protected $nbReponses;
+
+
     private $listeQuestions = array();
+
+    private $listeResultats = array();
     
     function __construct($id = 0, $titre = "", $description ="") {
         $this->setId($id);
@@ -84,6 +93,34 @@ class Enquete {
         $this->listeQuestions = $listeQuestions;
         return $this;
     }
+
+    
+    public function getNbReponses() {
+        return $this->nbReponses;
+    }
+
+    public function setNbReponses($nbReponses) {
+        $this->nbReponses = (int)$nbReponses;
+        return $this;
+    }
+    
+    public function getListeResultats() {
+        return $this->listeResultats;
+    }
+
+    public function addListeResultats(Resultat $resultat) {
+        $this->listeResultats[] = $resultat;
+        return $this;
+    }
+    
+    public function setListeResultats($listeResultats) {
+        $this->listeResultats = $listeResultats;
+        return $this;
+    }
+
+
+
+
 
 
 

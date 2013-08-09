@@ -2,6 +2,8 @@
 
 namespace Application\Entity;
 
+
+
 class Question
 {
 
@@ -29,6 +31,7 @@ class Question
      * @var array
      */
     private $listeChoix = array();
+
 
     public function __construct($id=0, $libelle="", $type="")
     {
@@ -80,5 +83,6 @@ class Question
         $this->listeChoix[] = $choix;
         return $this;
     }
+    
 
 }

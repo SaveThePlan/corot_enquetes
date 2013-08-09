@@ -1,8 +1,11 @@
 <?php
-
- 
+/* @var $enquete \Application\Entity\Enquete */
+/* @var $formEnquete \Application\Form\EnqueteForm */
 ?>
-<h2>Titre de l'enquete</h2>
+<h1>Consulter les résultats</h1>
+
+<h2><?php echo $enquete->getTitre(); ?></h2>
+<?php var_dump($enquete->getListeQuestions()); ?>
 
 <p>Nombre de réponses enregistrées : 256</p>
 
