@@ -64,6 +64,7 @@ class Module {
                     $options = $sm->get('zfcuser_module_options');
                     $form = new Register(null, $options);
 
+                    /*
                     //Ajout de champs :
                     $form->add(array(
                         'name' => 'photo',
@@ -74,6 +75,8 @@ class Module {
                             'type' => 'text'
                         ),
                     ));
+                     * 
+                     */
 
 
                     //$form->setCaptchaElement($sm->get('zfcuser_captcha_element'));
