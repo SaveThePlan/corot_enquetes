@@ -230,20 +230,31 @@ class MembreController extends UserController
 //enquete ok : récupération de la liste des questions
         $mapperQuestion = new QuestionMapper($adapter);
         $listeQuestions = $mapperQuestion->getAllByIdEnquete($idEnquete);
+        
+        if($listeQuestions) {
+            $enquete->setListeQuestions($listeQuestions);
+        }
 
-        $enquete->setListeQuestions($listeQuestions);
-
+        //nombre de répondants
         $mapperResultat = new ReponseMapper($adapter);
-        $listeResultats = $mapperResultat->countRepondantsByIdEnquete($idEnquete);
-
-        $enquete->setListeQuestions($listeQuestions);
-
-        $formEnquete = new EnqueteForm($listeQuestions, $adapter);
+        $nbReponses = $mapperResultat->countRepondantsByIdEnquete($idEnquete);
+        
+        if($nbReponses) {
+            $enquete->setNbReponses($nbReponses);
+        }
+        
+        //les resultats de chaque question
+        foreach ($listeQuestions as $question) /* @var $question Question */
+        {
+            $resultat = $mapperResultat->resultatByQuestion($question);
+            
+            $enquete->addListeResultats($resultat);
+        }
+        
 
         return new ViewModel(
                 array(
-            'enquete' => $enquete,
-            'formEnquete' => $formEnquete
+            'enquete' => $enquete
                 )
         );
     }

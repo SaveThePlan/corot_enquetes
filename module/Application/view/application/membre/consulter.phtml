@@ -5,35 +5,85 @@
 <h1>Consulter les résultats</h1>
 
 <h2><?php echo $enquete->getTitre(); ?></h2>
-<?php var_dump($enquete->getListeQuestions()); ?>
 
-<p>Nombre de réponses enregistrées : 256</p>
+<p>Nombre de réponses enregistrées : <?php echo $enquete->getNbReponses(); ?></p>
 
-<p>Question 1 :(Type Texte)</p>
 
-<table border="1" width="400px" style='border: medium solid black'>
-    <tr><th>Reponse</th></tr>
-    <tr><td>Reponse 1</td></tr>
-    <tr><td>Reponse 2</td></tr>
-    <tr><td>Reponse 3</td></tr>
-    <tr><td>Reponse 4</td></tr>
-    <tr><td>Reponse 5</td></tr>
-</table>
+<?php
+for ($i = 0; $i < count($enquete->getListeQuestions()); $i++):
 
-<p>Question 2 :(Type Nombre)</p>
+    $question = $enquete->getListeQuestions()[$i]; /* @var $question \Application\Entity\Question */
+    $resultat = $enquete->getListeResultats()[$i]; /* @var $resultat \Application\Entity\Resultat */
+    ?>
 
-<table border="1" width="400px" style='border: medium solid black'>
-    <tr><th>Min</th><th>Max</th><th>Moyenne</th><th>Somme</th></tr>
-    <tr><td>2</td><td>20</td><td>10</td><td>250</td></tr>
-</table>
+    <p><?php echo $question->getLibelle(); ?></p>
 
-<p>Question 3 :(Type QCM)</p>
+    <table>
 
-<table border="1" width="400px" style='border: medium solid black'>
-    <tr><th>Proposition</th><th>Nombre de réponse</th></tr>
-    <tr><td>proposition1</td><td>15</td></tr>
-    <tr><td>proposition2</td><td>0</td></tr>
-    <tr><td>proposition3</td><td>2</td></tr>
-</table>
+    <?php if ($question->getType() == "text") : ?>
 
-<input type="submit" value="Envoyer Effacer les données" name="effacer" />
+            <tr>
+                <th>Réponses</th>
+            </tr>
+
+        <?php foreach ($resultat->getResultat() as $line): ?>
+
+                <tr>
+                    <td><?php echo $line; ?></td>
+                </tr>
+
+            <?php endforeach; ?>
+
+    <?php elseif ($question->getType() == "nb") : ?>
+
+            <tr>
+                <th colspan="4" >Réponses</th>
+            </tr>
+
+            <tr>
+                <th>Minimum</th>
+                <th>Maximum</th>
+                <th>Moyenne</th>
+                <th>Somme</th>
+            </tr>
+
+            <tr>
+                <td><?php echo $resultat->getResultat()['min']; ?></td>
+                <td><?php echo $resultat->getResultat()['max']; ?></td>
+                <td><?php echo $resultat->getResultat()['moyenne']; ?></td>
+                <td><?php echo $resultat->getResultat()['somme']; ?></td>
+            </tr>
+
+    <?php elseif ($question->getType() == "qcm") : ?>
+
+            <tr>
+                <th colspan="2">Réponses</th>
+            </tr>
+
+            <tr>
+                <th>Proposition</th>
+                <th>Nombre de réponse(s)</th>
+            </tr>
+
+        <?php foreach ($resultat->getResultat() as $line): ?>
+
+                <tr>
+                    <td><?php echo $line['libelle']; ?></td>
+                    <td><?php echo $line['compte']; ?></td>
+                </tr>
+
+            <?php endforeach; ?>
+
+    <?php endif; ?>
+
+    </table>
+
+<?php endfor; ?>
+
+<form action="">
+
+    <p>Souhaitez-vous supprimer l'ensemble des données collectées ?</p>
+
+    <input type="submit" value="Envoyer Effacer les données" name="effacer" />
+
+</form>
