@@ -1,5 +1,4 @@
 <h1><?php echo $this->translate('Register'); ?></h1>
-<h1>rtdtdtrd</h1>
 <?php
 if (!$this->enableRegistration) {
     print "Registration is disabled";
@@ -10,7 +9,6 @@ $form->prepare();
 $form->setAttribute('action', $this->url('zfcuser/register'));
 $form->setAttribute('method', 'post');
 ?>
-<h3><?php echo 'testetettsftftsftd';?></h3>
 <?php echo $this->form()->openTag($form) ?>
     <dl class="zend_form">
     <?php foreach ($form as $element): ?>
