@@ -20,20 +20,27 @@ $this->headLink()->prependStylesheet($this->basePath() . '/css/ajoutQuestion.css
 <?php echo $this->formLabel($formCreation->get("description")); ?>
 <?php echo $this->formElement($formCreation->get("description")); ?>
 
-<div class="question">
+<div id="questCont">·
+    <div class="question">
 
-    <?php echo $this->formLabel($formCreation->get("question")); ?>
-    <?php echo $this->formElement($formCreation->get("question")); ?>
+        <?php echo $this->formLabel($formCreation->get("question")); ?>
+        <?php echo $this->formElement($formCreation->get("question")); ?>
 
-    <?php echo $this->formLabel($formCreation->get("type")); ?>
-    <?php echo $this->formElement($formCreation->get("type")); ?>
+        <?php echo $this->formLabel($formCreation->get("type")); ?>
+        <?php echo $this->formElement($formCreation->get("type")); ?>
 
-    <?php echo $this->formLabel($formCreation->get("proposition[]")); ?>
-    <?php echo $this->formElement($formCreation->get('ajoutprop')); ?>
+        <?php echo $this->formLabel($formCreation->get("proposition[]")); ?>
+        <?php echo $this->formElement($formCreation->get('ajoutprop')); ?>
 
-    <?php echo $this->formElement($formCreation->get("proposition[]")); ?>
+        <?php echo $this->formElement($formCreation->get("proposition[]")); ?>
+        <?php echo $this->formElement($formCreation->get("proposition[]")); ?>
+        
+        <?php echo $this->formElement($formCreation->get("suppquest")); ?>
 
+    </div>
 </div>
+
+    <?php echo $this->formElement($formCreation->get('ajoutquest')); ?>
 
 <input type="submit" value="enregistrer" />
 

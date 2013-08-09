@@ -2,12 +2,10 @@
 
 namespace Application\Form;
 
-use Application\Entity\Question;
-use Application\Mapper\PropositionMapper;
-use Zend\Db\Adapter\Adapter;
-use Zend\Form\Element\Number;
-use Zend\Form\Element\Select;
+use Zend\Form\Element\Button;
+use Zend\Form\Element\Radio;
 use Zend\Form\Element\Text;
+use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 
 class CreerForm extends Form {
@@ -24,7 +22,7 @@ class CreerForm extends Form {
         $element->setLabel('Titre de l\'enquête');
         $this->add($element);
 
-        $element = new \Zend\Form\Element\Textarea('description');
+        $element = new Textarea('description');
         $element->setLabel('Description');
         $this->add($element);
 
@@ -33,24 +31,34 @@ class CreerForm extends Form {
         $element->setLabel('Question');
         $this->add($element);
 
-        $element = new \Zend\Form\Element\Radio('type');
-        $element->setLabel('Type de réponse attendue');
-        $element->setValueOptions(array(
-            'text' => 'champ texte',
-            'nb' => 'champ numérique',
-            'qcm' => 'choix multiples'
-        ));
+        $element = new Radio('type');
+        $element->setLabel('Type de réponse attendue')
+                ->setValueOptions(array(
+                    'text' => 'champ texte',
+                    'nb' => 'champ numérique',
+                    'qcm' => 'choix multiples'
+                ))
+                ->setValue('text');
         $this->add($element);
 
-        $element = new \Zend\Form\Element\Text('proposition[]');
+        $validerProp = new Button('ajoutprop');
+        $validerProp->setLabel('ajouter une proposition')
+                ->setAttributes(array('class' => 'prop'));
+        $this->add($validerProp);
+
+        $element = new Text('proposition[]');
         $element->setLabel('Propositions')->setLabelAttributes(array('class' => 'prop'))
                 ->setAttributes(array('class' => 'prop'));
         $this->add($element);
 
-        $validerProp = new \Zend\Form\Element\Button('ajoutprop');
-        $validerProp->setValue(0)->setLabel('ajouter une proposition')
-                ->setAttributes(array('class' => 'prop'));
-        $this->add($validerProp);
+        $suppQuest = new Button('suppquest');
+        $suppQuest->setLabel('supprimer');
+        $this->add($suppQuest);
+
+        $ajoutQuest = new Button('ajoutquest');
+        $ajoutQuest->setLabel('ajouter une question')
+                ->setAttributes(array('id' => 'ajoutquest'));
+        $this->add($ajoutQuest);
     }
 
 }
