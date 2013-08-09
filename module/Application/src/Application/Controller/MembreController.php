@@ -218,8 +218,24 @@ class MembreController extends UserController
 //recupère le paramètre get de l'url
         $idEnquete = (int) $this->params('id');
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-        $mapper = new EnqueteMapper($adapter);
 
+        $mapper = new EnqueteMapper($adapter);
+        $mapperQuestion = new QuestionMapper($adapter);
+        $mapperResultat = new ReponseMapper($adapter);
+
+        
+        //gestion de la suppression des données
+        if ($this->request->isPost()) {
+            
+            if($this->request->getPost('effacer')) {
+                $mapperResultat->deleteAllByEnquete($idEnquete);
+            }
+            
+        }
+        
+        
+        
+        
         $enquete = $mapper->getById($idEnquete);
 
         if (!$enquete) {
@@ -228,7 +244,6 @@ class MembreController extends UserController
         }
 
 //enquete ok : récupération de la liste des questions
-        $mapperQuestion = new QuestionMapper($adapter);
         $listeQuestions = $mapperQuestion->getAllByIdEnquete($idEnquete);
         
         if($listeQuestions) {
@@ -236,7 +251,6 @@ class MembreController extends UserController
         }
 
         //nombre de répondants
-        $mapperResultat = new ReponseMapper($adapter);
         $nbReponses = $mapperResultat->countRepondantsByIdEnquete($idEnquete);
         
         if($nbReponses) {

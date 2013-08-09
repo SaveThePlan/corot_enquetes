@@ -94,12 +94,14 @@ class ReponseMapper {
     }
 
     /**
-     * suppression des reponses à une question
+     * suppression des reponses à une enquete
      *
      * @param int
      *  @return bool
      */
-    public function deleteAllByQuestion($idQuestion) {
+    public function deleteAllByEnquete($idEnquete) {
+        
+        //TODO
         
     }
 
