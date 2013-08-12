@@ -26,10 +26,7 @@ class EnqueteInputFilter extends InputFilter
        // parent::__construct("enquete");
         
         $this->mapperPropositions = new PropositionMapper($adapter);
-        
-        
-        
-        
+
         foreach ($listeQuestions as $question) /* @var $question Question */
         {
             switch ($question->getType()) {

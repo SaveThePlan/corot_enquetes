@@ -1,18 +1,20 @@
-<?php
+<?php //
 
 namespace Application\Form;
 
 use Application\Entity\Proposition;
 use Application\Entity\Question;
+use Application\FormUtils\AbstractEnqueteForm;
 use Application\Mapper\PropositionMapper;
 use Zend\Db\Adapter\Adapter;
 use Zend\Form\Element\Number;
 use Zend\Form\Element\Radio;
 use Zend\Form\Element\Select;
 use Zend\Form\Element\Text;
-use Zend\Form\Form;
 
-class EnqueteForm extends Form {
+
+
+class EnqueteForm extends AbstractEnqueteForm {
 
     /**
      *
@@ -30,37 +32,16 @@ class EnqueteForm extends Form {
 
         $this->mapperPropositions = new PropositionMapper($adapter);
 
-
-
-
         foreach ($listeQuestions as $question) /* @var $question Question */ {
-            switch ($question->getType()) {
-
-                case "qcm":
-                    $element = $this->questionQcm($question);
-                    break;
-
-                case "nb":
-                    $element = $this->questionNb($question);
-                    break;
-
-                case "text":
-                default:
-                    $element = $this->questionText($question);
-                    break;
+            
+            if($element = $this->dispatcher($question)) {
+                $this->add($element);
             }
-
-            $this->add($element);
+            
         }
-
-
-
-//        $submit = new \Zend\Form\Element\Submit('submit');
-//        $submit->setValue('Valider');
-//        $this->add($submit);
     }
 
-    private function questionText(Question $question) {
+    public function questionText(Question $question) {
         $element = new Text('question_text_' . $question->getId());
         $element->setLabel($question->getLibelle())
                 ->setAttributes(array(
@@ -70,7 +51,7 @@ class EnqueteForm extends Form {
         return $element;
     }
 
-    private function questionNb(Question $question) {
+    public function questionNb(Question $question) {
         $element = new Number('question_nb_' . $question->getId());
         $element->setLabel($question->getLibelle())
                 ->setAttributes(array(
@@ -80,7 +61,7 @@ class EnqueteForm extends Form {
         return $element;
     }
 
-    private function questionQcm(Question $question) {
+    public function questionQcm(Question $question) {
         $listechoix = $this->mapperPropositions->getAllByIdQuestion($question->getId());
 
         $options = array();
@@ -91,11 +72,11 @@ class EnqueteForm extends Form {
 
         // si il y a moins de 5 réponses possibles, on affiche des boutons radio
         if (count($listechoix) < 5) {
-            $element = new Radio('question_qcm_' . $question->getId() );
+            $element = new Radio('question_qcm_' . $question->getId());
         } else {
 
             //sinon on affiche une liste
-            $element = new Select('question_qcm_' . $question->getId() );
+            $element = new Select('question_qcm_' . $question->getId());
         }
 
         $element->setLabel($question->getLibelle());
@@ -106,4 +87,3 @@ class EnqueteForm extends Form {
     }
 
 }
-
