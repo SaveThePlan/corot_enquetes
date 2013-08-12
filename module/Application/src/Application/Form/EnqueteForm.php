@@ -42,21 +42,15 @@ class EnqueteForm extends AbstractEnqueteForm {
     }
 
     public function questionText(Question $question) {
-        $element = new Text('question_text_' . $question->getId());
-        $element->setLabel($question->getLibelle())
-                ->setAttributes(array(
-                    'id' => 'question' . $question->getId()
-        ));
+        $element = new Text(self::BASE_NAME . $question->getId());
+        $element->setLabel($question->getLibelle());
 
         return $element;
     }
 
     public function questionNb(Question $question) {
-        $element = new Number('question_nb_' . $question->getId());
-        $element->setLabel($question->getLibelle())
-                ->setAttributes(array(
-                    'id' => 'question' . $question->getId()
-        ));
+        $element = new Number(self::BASE_NAME . $question->getId());
+        $element->setLabel($question->getLibelle());
 
         return $element;
     }
@@ -72,11 +66,11 @@ class EnqueteForm extends AbstractEnqueteForm {
 
         // si il y a moins de 5 réponses possibles, on affiche des boutons radio
         if (count($listechoix) < 5) {
-            $element = new Radio('question_qcm_' . $question->getId());
+            $element = new Radio(self::BASE_NAME . $question->getId());
         } else {
 
             //sinon on affiche une liste
-            $element = new Select('question_qcm_' . $question->getId());
+            $element = new Select(self::BASE_NAME . $question->getId());
         }
 
         $element->setLabel($question->getLibelle());

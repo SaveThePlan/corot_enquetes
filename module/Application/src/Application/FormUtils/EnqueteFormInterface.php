@@ -9,6 +9,8 @@ use Application\Entity\Question;
  * @author USER
  */
 interface EnqueteFormInterface {
+    
+    const BASE_NAME = 'question';
 
     public function dispatcher(Question $question);
 
@@ -19,5 +21,3 @@ interface EnqueteFormInterface {
     public function questionQcm(Question $question);
 
 }
-
-?>

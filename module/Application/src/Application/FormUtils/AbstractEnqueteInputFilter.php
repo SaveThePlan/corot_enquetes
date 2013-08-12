@@ -4,7 +4,7 @@ namespace Application\FormUtils;
 
 use Application\Entity\Question;
 use Application\FormUtils\EnqueteFormInterface;
-use Zend\Form\Form;
+use Zend\InputFilter\InputFilter;
 
 /*
  * To change this template, choose Tools | Templates
@@ -16,8 +16,8 @@ use Zend\Form\Form;
  *
  * @author USER
  */
-abstract class AbstractEnqueteForm 
-    extends Form 
+abstract class AbstractEnqueteInputFilter 
+    extends InputFilter 
     implements EnqueteFormInterface 
 {
 
