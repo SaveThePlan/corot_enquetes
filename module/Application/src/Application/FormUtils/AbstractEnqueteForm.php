@@ -23,7 +23,7 @@ abstract class AbstractEnqueteForm
 
     public function dispatcher(Question $question) {
 
-        $method = 'question' . ucfirst($question->getType());
+        $method = self::BASE_NAME . ucfirst($question->getType());
         if (is_callable(array($this, $method))) {
             return $this->$method($question);
         }

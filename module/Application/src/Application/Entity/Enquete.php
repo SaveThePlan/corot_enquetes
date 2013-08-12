@@ -40,6 +40,8 @@ class Enquete {
 
     private $listeQuestions = array();
 
+    private $listeReponses = array();
+
     private $listeResultats = array();
     
     function __construct($id = 0, $titre = "", $description ="") {
@@ -117,8 +119,15 @@ class Enquete {
         $this->listeResultats = $listeResultats;
         return $this;
     }
+    
+    public function getListeReponses() {
+        return $this->listeReponses;
+    }
 
-
+    public function addListeReponses(Reponse $reponse) {
+        $this->listeReponses[] = $reponse;
+        return $this;
+    }
 
 
 

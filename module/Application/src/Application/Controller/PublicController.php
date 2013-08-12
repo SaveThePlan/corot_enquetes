@@ -2,20 +2,21 @@
 
 namespace Application\Controller;
 
+use Application\Entity\Proposition;
+use Application\Entity\Question;
 use Application\Entity\Reponse;
 use Application\Form\EnqueteForm;
 use Application\InputFilter\EnqueteInputFilter;
 use Application\Mapper\EnqueteMapper;
 use Application\Mapper\QuestionMapper;
 use Application\Mapper\ReponseMapper;
+use Zend\Form\Element;
 use Zend\Form\Element\Submit;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\View\Model\ViewModel;
 use Zend\XmlRpc\Request;
 
-class PublicController extends AbstractActionController
-{
+class PublicController extends AbstractActionController {
 
     /**
      *
@@ -23,19 +24,18 @@ class PublicController extends AbstractActionController
      */
     protected $request;
 
-    public function indexAction()
-    {
+    public function indexAction() {
         if ($this->zfcUserAuthentication()->hasIdentity()) {
             return $this->redirect()->toRoute('zfcuser');
         }
         $registerForm = $this->getServiceLocator()->get('zfcuser_register_form');
+
         return new ViewModel(array(
             'registerForm' => $registerForm
         ));
     }
 
-    public function repondreAction()
-    {
+    public function repondreAction() {
 
         $idEnquete = (int) $this->params('id');
         $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
@@ -68,51 +68,39 @@ class PublicController extends AbstractActionController
             $formEnquete->setInputFilter(new EnqueteInputFilter($enquete->getListeQuestions(), $adapter));
 
             if ($formEnquete->isValid()) {
-                echo 'valid';
 
-                $adapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
-                $mapper = new ReponseMapper($adapter);
+                $mapperReponse = new ReponseMapper($adapter);
 
                 $donneesFiltrees = $formEnquete->getData();
 
                 // générer un id pour le repondant
-                $uiRepondant = uniqid('', false);
-                foreach ($donneesFiltrees as $nameQ => $valueQ) {
-                    $tabQ = explode('_', $nameQ);
-                    $idQ = $tabQ[2];
-                    $typeQ = $tabQ[1];
+                $uidRepondant = uniqid('', false);
 
-                    // Si QCM
-                    if ($typeQ == "qcm") {
-                        $enr = array(
-                            "uid_repondant" => $uiRepondant,
-                            "contenu" => NULL,
-                            "id_question" => $idQ,
-                            "id_proposition" => $valueQ
-                        );
-                    } else {
-                        $enr = array(
-                            "uid_repondant" => $uiRepondant,
-                            "contenu" => $valueQ,
-                            "id_question" => $idQ,
-                            "id_proposition" => NULL
-                        );
-                    }
+                foreach ($formEnquete->getElements() as $element) /* @var $element Element */ {
+                    //(dé)construction de l'id question
+                    $idQuestion = (int) substr($element->getName(), strlen(EnqueteForm::BASE_NAME));
 
+                    //instance de réponse (avec pointeurs vers question et proposition)
                     $reponse = new Reponse();
+                    $reponse->setUidRepondant($uidRepondant);
+                    $reponse->setQuestion(new Question($idQuestion));
 
-                    $hydrator = new ClassMethods();
-                    $hydrator->hydrate($enr, $reponse);
-
-                    if ($mapper->add($reponse)) {
-                        $this->flashMessenger()->addSuccessMessage("Merci d'avoir répondu à cette enquête");
+                    if ($element instanceof Element\Radio || $element instanceof Element\Select) {
+                        $reponse->setProposition(new Proposition((int) $element->getValue()));
                     } else {
-                        $this->flashMessenger()->addErrorMessage("Une erreur s'est produite pendant l'envoi du formulaire");
+                        //element n'est ni radio ni select
+                        $reponse->setContenu($element->getValue());
                     }
+
+                    //ajout à la liste de réponse de l'enquête
+                    $enquete->addListeReponses($reponse);
                 }
 
-
-
+                if ($mapper->saveResponses($enquete, $mapperReponse)) {
+                    $this->flashMessenger()->addSuccessMessage("Merci d'avoir répondu à cette enquête");
+                } else {
+                    $this->flashMessenger()->addErrorMessage("Une erreur s'est produite pendant l'envoi du formulaire");
+                }
 
                 return $this->redirect()->toRoute('home');
             }

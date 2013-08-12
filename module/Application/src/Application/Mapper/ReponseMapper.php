@@ -2,21 +2,21 @@
 
 namespace Application\Mapper;
 
-use Application\Entity\Enquete;
 use Application\Entity\Question;
 use Application\Entity\Reponse;
 use Application\Entity\Resultat;
+use Application\FormUtils\ResultatsInterface;
+use Application\Hydrator\ReponseHydrator;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
  * Description of EnqueteMapper
  *
  */
-class ReponseMapper {
+class ReponseMapper implements ResultatsInterface {
 
     private $gateway;
 
@@ -77,7 +77,7 @@ class ReponseMapper {
      *  @return bool
      */
     public function add(Reponse $reponse) {
-        $hydrator = new ClassMethods();
+        $hydrator = new ReponseHydrator();
         $set = $hydrator->extract($reponse);
 
         return $this->gateway->insert($set);
@@ -100,9 +100,8 @@ class ReponseMapper {
      *  @return bool
      */
     public function deleteAllByEnquete($idEnquete) {
-        
+
         //TODO
-        
     }
 
     /**
@@ -112,39 +111,24 @@ class ReponseMapper {
      */
     public function resultatByQuestion(Question $question) {
 
-        switch ($question->getType()) {
+        $resultTab = $this->dispatcher($question);
 
-            case "qcm":
-                $resultTab = $this->resultatQcm($question->getId());
-                break;
-
-            case "nb":
-                $resultTab = $this->resultatNb($question->getId());
-                break;
-
-            case "text":
-            default:
-                $resultTab = $this->resultatText($question->getId());
-                break;
-        }
-        
         $resultat = new Resultat();
-        
-        if($resultTab) {
+
+        if ($resultTab) {
             $resultat->setResultat($resultTab);
         }
-        
+
         return $resultat;
-        
     }
 
     /**
      * 
-     * @param int $idQuestion
-     * @return $resultset
+     * @param Question $question
+     * @return array
      */
-    protected function resultatText($idQuestion) {
-        $idQuestion = (int) $idQuestion;
+    public function resultatText(Question $question) {
+        $idQuestion = (int) $question->getId();
 
         //SELECT contenu FROM reponse WHERE id_question =3;
         $select = new Select();
@@ -154,10 +138,10 @@ class ReponseMapper {
 
         $resultset = $this->gateway->selectWith($select);
 
-        if (!$resultset) { 
+        if (!$resultset) {
             return FALSE;
         }
-        
+
         $arrayResultat = array();
 
         foreach ($resultset as $row) {
@@ -169,34 +153,33 @@ class ReponseMapper {
 
     /**
      * 
-     * @param int $idQuestion
-     * @return $resultset
+     * @param Question $question
+     * @return array
      */
-    protected function resultatNb($idQuestion) {
-        $idQuestion = (int) $idQuestion;
+    public function resultatNb(Question $question) {
+        $idQuestion = (int) $question->getId();
 
         //SELECT MIN(contenu) as min, MAX(contenu) as max, AVG(contenu) as moyenne,SUM(contenu) as somme FROM reponse WHERE id_question =2;
         $select = new Select();
         $select->columns(array(
-            'min' => new Expression('MIN(contenu)'),
-            'max' => new Expression('MAX(contenu)'),
-            'moyenne' => new Expression('AVG(contenu)'),
-            'somme' => new Expression('SUM(contenu)'),
-            ), false)
+                    'min' => new Expression('MIN(contenu)'),
+                    'max' => new Expression('MAX(contenu)'),
+                    'moyenne' => new Expression('AVG(contenu)'),
+                    'somme' => new Expression('SUM(contenu)'),
+                        ), false)
                 ->from($this->gateway->getTable())
                 ->where(array('id_question' => $idQuestion));
 
         $resultset = $this->gateway->selectWith($select);
 
-        if (!$resultset) { 
+        if (!$resultset) {
             return FALSE;
         }
-        
+
         $arrayResultat = array();
 
         foreach ($resultset as $row) {
             $arrayResultat = $row->getArrayCopy();
-            
         }
 
         return $arrayResultat;
@@ -204,11 +187,11 @@ class ReponseMapper {
 
     /**
      * 
-     * @param int $idQuestion
-     * @return $resultset
+     * @param Question $question
+     * @return array
      */
-    protected function resultatQcm($idQuestion) {
-        $idQuestion = (int) $idQuestion;
+    public function resultatQcm(Question $question) {
+        $idQuestion = (int) $question->getId();
 
         //SELECT p.libelle, count(DISTINCT r.id) compte
         //FROM reponse r
@@ -219,27 +202,37 @@ class ReponseMapper {
         //ORDER BY compte DESC;
         $select = new Select();
         $select->columns(array(
-            'compte' => new Expression('COUNT(DISTINCT reponse.id)')
-            ), true)
+                    'compte' => new Expression('COUNT(DISTINCT reponse.id)')
+                        ), true)
                 ->from($this->gateway->getTable())
                 ->join('proposition', 'id_proposition = proposition.id', 'libelle', Select::JOIN_RIGHT)
                 ->where(array('proposition.id_question' => $idQuestion))
                 ->group(array('libelle'))
                 ->order('compte DESC');
-        
+
         $resultset = $this->gateway->selectWith($select);
 
-        if (!$resultset) { 
+        if (!$resultset) {
             return FALSE;
         }
-        
+
         $arrayResultat = array();
-        
+
         foreach ($resultset as $row) {
             $arrayResultat[] = $row->getArrayCopy();
         }
 
         return $arrayResultat;
+    }
+
+    public function dispatcher(Question $question) {
+
+        $method = self::BASE_NAME . ucfirst($question->getType());
+        if (is_callable(array($this, $method))) {
+            return $this->$method($question);
+        }
+
+        return false; //if method not callable
     }
 
 }
