@@ -1,10 +1,17 @@
 <h2><?php echo $enquete->getTitre(); ?></h2>
-<h3>Description :</h3>
 <p><?php echo nl2br($enquete->getDescription()); ?></p>
 
 
-<?php //liste des questions
-if ($enquete->getListeQuestions()):
-    echo $this->form($formEnquete);
-endif; ?>
+<?php echo $this->form()->openTag($formEnquete); ?>
 
+
+<?php foreach($enquete->getListeQuestions() as $question) : /* @var $question \Application\Entity\Question */ ?>
+<p>
+    <?php echo $this->formLabel($formEnquete->get(\Application\Form\EnqueteForm::BASE_NAME.$question->getId())); ?>
+    <?php echo $this->formElement($formEnquete->get(\Application\Form\EnqueteForm::BASE_NAME.$question->getId())); ?>
+</p>
+<?php endforeach; ?>
+
+<input type="submit" value="valider" />
+
+<?php echo $this->form()->closeTag(); ?>

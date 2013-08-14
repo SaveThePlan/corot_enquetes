@@ -199,8 +199,12 @@ class MembreController extends UserController
 //enquete ok : récupération de la liste des questions
         $mapperQuestion = new QuestionMapper($adapter);
         $listeQuestions = $mapperQuestion->getAllByIdEnquete($idEnquete);
+        
+        if($listeQuestions) {
+            $enquete->setListeQuestions($listeQuestions);
+        }
 
-        $formEnquete = new EnqueteForm($listeQuestions, $adapter);
+        $formEnquete = new EnqueteForm($enquete->getListeQuestions(), $adapter);
 
         return new ViewModel(
                 array(

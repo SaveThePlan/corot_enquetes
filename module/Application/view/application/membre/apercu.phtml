@@ -1,14 +1,22 @@
 <?php
 /* @var $enquete \Application\Entity\Enquete */
 ?>
+
 <h2><?php echo $enquete->getTitre(); ?></h2>
 <p><?php echo nl2br($enquete->getDescription()); ?></p>
 
 
-<?php 
-//affichage formulaire
-echo $this->form($formEnquete);
-?>
+<?php echo $this->form()->openTag($formEnquete); ?>
+
+
+<?php foreach($enquete->getListeQuestions() as $question) : /* @var $question \Application\Entity\Question */ ?>
+<p>
+    <?php echo $this->formLabel($formEnquete->get(\Application\Form\EnqueteForm::BASE_NAME.$question->getId())); ?>
+    <?php echo $this->formElement($formEnquete->get(\Application\Form\EnqueteForm::BASE_NAME.$question->getId())); ?>
+</p>
+<?php endforeach; ?>
+
+<?php echo $this->form()->closeTag(); ?>
 
 <p>
     <a href="<?php echo $this->url('modifierEnquete', array('id'=>$enquete->getId())); ?>">éditer</a> • 
